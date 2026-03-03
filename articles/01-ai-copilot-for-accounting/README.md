@@ -4,7 +4,7 @@
 
 ---
 
-**By Sean Toohey**
+**By Svetlana Toohey**
 
 If someone told you a year ago that you could open two spreadsheets, type a question in plain English, and get a CFO-ready margin analysis back in seconds -- you'd probably ask what they were selling. But that's exactly what's happening right now with AI coding assistants, and accounting professionals are uniquely positioned to benefit. You don't need to learn Python. You don't need to be a developer. You just need to know what questions to ask -- and that's something accountants have always been good at.
 
