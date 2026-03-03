@@ -40,4 +40,4 @@ To reproduce the analysis in any article:
 
 ---
 
-*By Sean Toohey*
+*By Svetlana Toohey*
