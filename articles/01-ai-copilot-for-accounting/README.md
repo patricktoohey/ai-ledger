@@ -1,4 +1,4 @@
-# Your AI Co-Pilot for Accounting: A Hands-On Guide to Claude Code in VS Code
+# Your AI Co-Pilot for Accounting: A Hands-On Guide to Claude in VS Code
 
 *How two CSV files, plain English questions, and zero formulas revealed a margin crisis in under 10 minutes*
 
@@ -6,80 +6,93 @@
 
 **By Svetlana Toohey**
 
-If someone told you a year ago that you could open two spreadsheets, type a question in plain English, and get a CFO-ready margin analysis back in seconds -- you'd probably ask what they were selling. But that's exactly what's happening right now with AI coding assistants, and accounting professionals are uniquely positioned to benefit. You don't need to learn Python. You don't need to be a developer. You just need to know what questions to ask -- and that's something accountants have always been good at.
+If someone told you a year ago that you could open two spreadsheets, type a question in plain English, and get a CFO-ready margin analysis in seconds -- you'd probably assume there was a catch.
 
-This article walks you through a real working example, step by step. By the end, you'll have everything you need to try it yourself.
+There isn't.
+
+AI coding assistants are changing how quickly we move from raw data to insight. And accountants are uniquely positioned to benefit.
+
+You don't need to know Python to start.
+You don't need to be a developer.
+
+You need to know what questions to ask.
+
+That's something accountants have always done well.
+
+This article walks through a real example step by step. By the end, you'll know how to try it yourself -- and how to grow beyond prompts into reusable systems.
 
 ---
 
 ## What We're Working With
 
-**The tool:** Claude Code, an AI assistant that runs inside Visual Studio Code (VS Code) -- a free, lightweight code editor from Microsoft.
+**Tool:** Claude, accessed through Copilot Chat in Visual Studio Code (VS Code).
+**Data:** Two CSV files.
+That's it.
 
-**The scenario:** A fictional company called **CodeCritters Inc.** sells premium AI-themed desk fidgets -- think collectible desk toys for the tech crowd. Three product lines:
+A fictional company -- **CodeCritters Inc.** -- sells premium AI-themed desk fidgets. Three product lines:
 
 - **PyPal** -- a friendly snake-shaped fidget coil (*$108--$130*)
 - **ByteBot** -- an articulated robot desk companion (*$170--$190*)
 - **TensorTurtle** -- a premium kinetic desk sculpture (*$238--$270*)
 
-**The data:** Two CSV files. That's it.
+The data:
 
 - `pythonmuse_orders_revenue.csv` -- 20 orders across 2024--2025 with customer, product, quantity, price, and salesperson
 - `pythonmuse_orders_costs.csv` -- matching cost records with vendor, material cost, labor employee, hours, and rates
 
-No pivot tables. No VLOOKUP. No macros. Just raw data and a conversation.
+No pivot tables.
+No VLOOKUP chains.
+No macros.
+
+Just raw data and structured questions.
 
 ---
 
-## Getting Started (The 5-Minute Setup)
+## Getting Started
 
-If you've never opened VS Code before, here's all you need:
+If you haven't set up your environment yet, start with the previous article: **[Where to Start If You're Ready to Work With AI](../00.5-where-to-start-with-ai/)**. It walks through installing Visual Studio Code, Python, and connecting the core tools -- no developer experience required.
 
-1. **Download VS Code** from code.visualstudio.com (free)
-2. **Install Claude Code** by following the setup instructions at claude.ai/claude-code
-3. **Create a project folder** with your CSV files inside a `data_raw/` subfolder
-4. **Open the folder** in VS Code (File > Open Folder)
-5. **Open the terminal** (Ctrl + ` on Windows, Cmd + ` on Mac)
-6. Type `claude` and hit Enter
+Once you have VS Code ready:
 
-That's it. You're now talking to an AI that can read, analyze, and reason about your data.
+1. **Enable Claude in Copilot Chat** -- open VS Code, go to the Copilot Chat panel, and select **Claude** from the model options at the bottom of the chat screen
+2. **Create a project folder** with your CSV files inside a `data_raw/` subfolder
+3. **Open the folder** in VS Code (File > Open Folder)
 
-> **For the accountants reading this:** The left panel in VS Code is just a file explorer -- like Windows Explorer or Finder. The bottom panel is your conversation with Claude. Think of it as a chat window that happens to understand spreadsheets.
+That's it. You're now talking to an AI that can read, analyze, and reason about your data -- right inside VS Code's chat panel.
 
 ---
 
-## The First Question: "What Am I Looking At?"
+## The First Question: Orientation
 
-Let's start the way any good analysis starts -- with orientation.
-
-**What you type:**
+You type:
 
 ```
-Read the two CSV files in the data_raw folder and give me a summary
-of what we're working with. How many orders, what time period, what
-products, and who is selling.
+Read the two CSV files in the data_raw folder and summarize
+what we're working with -- time period, products, salespeople.
 ```
 
-**What Claude returns:**
+Claude responds:
 
-Claude reads both files and reports back: 20 orders spanning January 2024 through November 2025. Three products across three price tiers. Five salespeople. Five production employees. Three material vendors. Revenue and cost data linked by order ID.
+20 orders. January 2024 through November 2025. Three products across three price tiers. Five salespeople. Five production employees. Three material vendors. Revenue and cost data linked by order ID.
 
-No formulas written. No column headers deciphered manually. You asked a question; you got context.
+In seconds.
 
-This might seem simple, but consider what just happened: the AI parsed two separate CSV files, identified their schemas, recognized the join key (`order_id`), and summarized the business structure. Your first interaction took less time than opening a file in Excel.
+Before you even open Excel, you understand the business structure.
+
+That alone saves time every month.
 
 ---
 
-## Where It Gets Interesting: Margin Analysis
+## Margin Analysis
 
 Here's where accountants will sit up straight.
 
 **What you type:**
 
 ```
-Join the revenue and cost data on order_id. Calculate gross profit
-and gross margin percentage for every order. Show results sorted by
-margin, worst first.
+Join the revenue and cost data on order_id.
+Calculate gross profit and margin percentage.
+Sort by lowest margin first.
 ```
 
 **What Claude finds:**
@@ -87,7 +100,7 @@ margin, worst first.
 ![Chart: Gross Margin by Order](visuals/01_margin_by_order.png)
 *Figure 1: Gross margin percentage by order. Red bars indicate orders below 20% -- all are TensorTurtle products sourced from SiliconSerpent Supply Co.*
 
-The three worst-performing orders jump off the screen:
+Three orders fall below 20% margin:
 
 | Order | Salesperson | Product | Revenue | COGS | Margin |
 |-------|-------------|---------|--------:|-----:|-------:|
@@ -95,9 +108,44 @@ The three worst-performing orders jump off the screen:
 | 2008 | Liam Carter | TensorTurtle | $8,400 | $6,960 | **17.1%** |
 | 2004 | Noah Patel | TensorTurtle | $7,650 | $6,300 | **17.6%** |
 
-All three share the same DNA: TensorTurtle product, SiliconSerpent vendor, 2025 order. That's not a coincidence -- that's a procurement problem hiding in plain sight.
+Same product.
+Same vendor.
+Same year.
+
+That's not noise.
+That's a pattern.
 
 Meanwhile, the healthiest margins (41--43%) belong to PyPal orders in 2024. The pattern is clear before we even ask the next question.
+
+---
+
+## Before You Trust It: Validate
+
+This is where accountants stay accountants.
+
+Immediately follow with:
+
+```
+Show the exact formulas used for gross profit and margin.
+Confirm totals tie back to the source files.
+```
+
+Then:
+
+```
+Export the full dataset with calculations to Excel
+so I can review it manually.
+```
+
+Spot-check a few rows.
+Recalculate one margin.
+Confirm totals.
+
+AI accelerates analysis.
+
+You still control validation.
+
+That balance is what makes this professional -- not experimental.
 
 ---
 
@@ -122,24 +170,22 @@ gross margin percentage. Is margin compressing?
 | Gross Profit | $23,017 | $22,919 | **-0.4%** |
 | Gross Margin | 38.3% | 30.0% | **-8.3 pts** |
 
-Read that again. Revenue grew 27 percent. Gross profit *declined*. The company is selling more and keeping less.
+Revenue: +27%.
+COGS: +44%.
+Gross profit: slightly down.
+Margin: down 8 points.
 
-A headline-only review would celebrate the top-line growth. A controller would see the margin compression. Claude found both in under five seconds -- and it didn't need a pivot table to do it.
+Revenue growth is masking profitability erosion.
+
+That's advisory insight -- produced in under a minute.
 
 > **The accounting insight:** This is the difference between bookkeeping and advisory. The books show revenue is up. The analysis shows profitability is eroding. AI gets you to the analysis faster, so you spend your time on the advisory.
 
 ---
 
-## Who's Actually Making Money?
+## Sales & Vendor Patterns
 
-**What you type:**
-
-```
-Rank all salespeople by total gross profit. Show their total revenue,
-total GP, and margin percentage.
-```
-
-**What Claude finds:**
+You rank salespeople by gross profit:
 
 ![Chart: Salesperson Performance](visuals/03_salesperson_gp.png)
 *Figure 3: Emma Chen dominates revenue and GP, but Olivia Brooks quietly posts the highest margin rate at 40.8%.*
@@ -152,29 +198,16 @@ total GP, and margin percentage.
 | 4 | Olivia Brooks | $14,275 | $5,825 | **40.8%** |
 | 5 | Noah Patel | $24,924 | $5,172 | **20.8%** |
 
-Two stories here:
+**Noah Patel's volume is misleading.** He generates nearly the same revenue as Liam Carter ($24.9K vs $24.7K) but produces $2,000 less gross profit. His 20.8% margin is nearly half the company average.
 
-**Story 1: Noah Patel's volume is misleading.** He generates nearly the same revenue as Liam Carter ($24.9K vs $24.7K) but produces $2,000 less gross profit. His 20.8% margin is nearly half the company average. If his commission is revenue-based, the company is incentivizing the wrong behavior.
+**Olivia Brooks is the quiet star.** Fewest orders on the team, but the highest margin rate at 40.8%.
 
-**Story 2: Olivia Brooks is the quiet star.** Fewest orders on the team, but the highest margin rate at 40.8%. If management is only looking at a revenue leaderboard, they're overlooking their most efficient seller.
-
-**The concentration risk is real, too.** A follow-up question reveals Emma Chen represents **34.5% of total revenue**. If she leaves, takes a medical leave, or her territory softens -- more than a third of the top line is at risk.
+**The concentration risk is real.** Emma Chen represents **34.5% of total revenue**. If she leaves, takes a medical leave, or her territory softens -- more than a third of the top line is at risk.
 
 ![Chart: Revenue Concentration](visuals/04_revenue_concentration.png)
 *Figure 4: Revenue concentration by salesperson. Emma Chen at 34.5% represents material key-person risk.*
 
----
-
-## Following the Money Upstream: Vendor Costs
-
-**What you type:**
-
-```
-Calculate average material cost per order by vendor, comparing 2024
-vs 2025. Which vendor shows the steepest cost increase?
-```
-
-**What Claude finds:**
+You compare vendor cost inflation:
 
 ![Chart: Vendor Cost Inflation](visuals/05_vendor_costs.png)
 *Figure 5: All three vendors show cost inflation, but SiliconSerpent Supply Co. leads at nearly 48% year-over-year.*
@@ -185,28 +218,24 @@ vs 2025. Which vendor shows the steepest cost increase?
 | QuantumCoil Materials | $2,400 | $3,267 | +36.1% |
 | NeuralNest Components | $2,600 | $3,500 | +34.6% |
 
-SiliconSerpent is the primary supplier for TensorTurtle -- the same product line with all three sub-20% margin orders. The root cause chain is now visible:
+You ask about labor hours per unit. 2024 averaged 0.80 hours per unit. 2025 averages 0.99 -- a **24% increase** in production time.
+
+The story forms:
 
 ```
-SiliconSerpent costs up 48%
-  --> TensorTurtle COGS rising
-    --> Margins compressing below 20%
-      --> Company GP flat despite 27% revenue growth
+Vendor cost increases
+  --> Product margin compression
+    --> Flat gross profit
+      --> Revenue growth hiding underlying weakness
 ```
 
-One more question rounds out the picture:
+You didn't build a dashboard.
 
-```
-Are labor hours per unit increasing? Compare 2024 vs 2025.
-```
-
-**Answer:** 2024 averaged 0.80 labor hours per unit. 2025 averages 0.99 -- a **24% increase** in production time per unit. The margin squeeze is coming from both material costs and labor inefficiency.
+You asked structured questions.
 
 ---
 
 ## Asking the Strategic Question
-
-This is the prompt that usually gets the strongest reaction in a room full of accountants and finance professionals:
 
 **What you type:**
 
@@ -227,28 +256,180 @@ summary with recommended actions for CodeCritters management.
 >
 > 5. **Audit production efficiency.** Labor hours per unit increased 24%, adding to the cost pressure. Investigate whether this stems from new employee onboarding, product complexity, or process degradation.
 
-That's a CFO-ready memo. Generated from two CSV files and a conversation. No Python script. No dashboard build. No VLOOKUP chain. Just questions asked in plain English.
+That's a CFO-ready memo. Generated from two CSV files and a conversation.
 
 ---
 
-## What This Means for Accounting Professionals
+## When to Stop Chatting and Start Building
 
-Let's be direct about what AI does and doesn't change for our profession.
+The first time feels magical.
 
-**What it doesn't replace:**
+The fifth time feels repetitive.
+
+Repetition is a signal.
+
+If each month you ask:
+
+- Join files
+- Calculate margin
+- Compare year over year
+
+Ask instead:
+
+```
+Write a reusable Python script that performs this analysis
+when new files are placed in the folder.
+Include detailed comments explaining each step.
+```
+
+The code may look intimidating at first.
+
+That's normal.
+
+Ask:
+
+```
+Explain this script line by line.
+Add more comments.
+Do not oversimplify.
+```
+
+And something shifts.
+
+You move from user to builder.
+
+---
+
+## The Excel Analogy We All Understand
+
+Think back to early in your career.
+
+No one taught you Excel properly.
+
+There wasn't a formal class that made you fluent.
+
+You learned by:
+
+- Watching senior team members
+- Asking peers how they built a formula
+- Discovering keyboard shortcuts
+- Seeing someone use INDEX/MATCH for the first time
+
+You picked up tricks.
+You practiced daily.
+You found your rhythm.
+
+This is the same.
+
+AI fluency doesn't come from a single course.
+
+It comes from:
+
+- Using it daily
+- Testing prompts
+- Asking others how they use it
+- Observing better workflows
+- Refining your approach
+
+Just like Excel, the competitive edge isn't "taking a class."
+
+It's integrating it into your everyday work.
+
+That's how mastery forms.
+
+---
+
+## Exporting Without Abandoning Excel
+
+You don't need to replace Excel.
+
+Ask Claude:
+
+```
+Export all summaries into one Excel workbook
+with separate tabs.
+```
+
+Review it like you always have.
+
+AI becomes your analysis engine.
+Excel remains your control surface.
+
+That hybrid model will define finance teams for years.
+
+---
+
+## Build Your Own Agent
+
+Once you've scripted repeated analysis, go further:
+
+```
+Create a reusable function analyze_margin()
+that returns:
+- Order margin
+- YOY comparison
+- Sales ranking
+- Vendor inflation summary
+```
+
+Now you've built infrastructure.
+
+Next month?
+Drop files.
+Run one command.
+
+That's not dependence.
+
+That's leverage.
+
+---
+
+## What AI Changes -- and What It Doesn't
+
+**It does not replace:**
+
 - Professional judgment on materiality and risk
-- Understanding of GAAP, IFRS, and regulatory context
+- Accounting standards knowledge (GAAP, IFRS, regulatory context)
 - Client relationships and trust
 - Accountability for the numbers
 
-**What it dramatically accelerates:**
-- Getting from raw data to initial analysis
-- Exploring patterns and anomalies across data sets
-- Drafting narratives and executive summaries
-- Testing "what-if" scenarios without building models from scratch
+**It accelerates:**
+
+- Orientation -- getting from raw data to understanding
+- Pattern detection across data sets
+- Draft summaries and executive narratives
+- Scenario exploration without building models from scratch
 - Cross-referencing multiple data sources
 
-The workflow isn't "AI does the accounting." The workflow is: **AI gets you to the insight in minutes, and you spend your hours on judgment, context, and advice.** The competitive advantage shifts from *who can build the best spreadsheet* to *who can ask the best questions*.
+AI gets you to insight in minutes.
+
+You apply expertise for hours.
+
+Eventually, you encode recurring insight into systems that run without you.
+
+That's evolution -- not replacement.
+
+---
+
+## The Real Skill Being Built
+
+The transformation isn't that AI answered your questions.
+
+It's that you:
+
+- Structured financial questions clearly
+- Validated output responsibly
+- Recognized patterns faster
+- Converted repetition into automation
+
+That's the progression.
+
+First: ask better questions.
+Next: encode them.
+
+The profession is moving from spreadsheet operator to automation architect.
+
+And just like Excel once did, those who practice daily will quietly build an edge.
 
 ---
 
@@ -256,9 +437,8 @@ The workflow isn't "AI does the accounting." The workflow is: **AI gets you to t
 
 Everything in this article is reproducible. Here's what you need:
 
-1. **VS Code** (free): [code.visualstudio.com](https://code.visualstudio.com)
-2. **Claude Code**: [claude.ai/claude-code](https://claude.ai/claude-code)
-3. **The sample data**: The CSV files used in this article are included in the [`data/`](data/) folder of this repository
+1. **VS Code with Claude enabled in Copilot Chat** -- see the [Getting Started](#getting-started) section above, or the full setup walkthrough in **[Where to Start If You're Ready to Work With AI](../00.5-where-to-start-with-ai/)**
+2. **The sample data**: The CSV files used in this article are included in the [`data/`](data/) folder of this repository
 
 Start with the simplest prompt: *"Read this file and tell me what you see."* Then ask the questions you'd normally answer with a pivot table. You'll find that the tool meets you where you already are -- you just get there faster.
 
@@ -278,4 +458,6 @@ These five prompts work whether you're analyzing orders, projects, clients, depa
 
 ---
 
-*The sample data and scripts referenced in this article are available in this repository. The author used Claude Code running in VS Code on Windows. All analysis was performed live -- no results were pre-calculated or staged.*
+*The sample data and scripts referenced in this article are available in this repository. The author used Claude via Copilot Chat in VS Code on Windows. All analysis was performed live -- no results were pre-calculated or staged.*
+
+*If you're experimenting and want to compare notes -- I'm here to help.*
