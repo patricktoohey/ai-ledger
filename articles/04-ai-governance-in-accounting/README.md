@@ -7,6 +7,8 @@
 **By Svetlana Toohey**
 *Published March 2026*
 
+![AI in Accounting Is Not the Wild West Anymore](./visuals/04_visual_front.png)
+
 For the past year, many finance teams have been quietly experimenting with AI.
 
 It usually starts with harmless questions:
@@ -125,6 +127,9 @@ For finance teams, this is extremely important.
 
 It means AI workflows can be made audit-ready when they are designed inside a structured control environment.
 
+![COSO Five Components for Generative AI](./visuals/04_coso_five_components.png)
+*Figure: The five COSO IC components applied to Generative AI governance.*
+
 ---
 
 ## What the Big Four Are Saying
@@ -182,6 +187,9 @@ The simplest principle is this:
 **Every output must be traceable.**
 
 An AI-supported accounting workflow should include four elements:
+
+![Traceable AI Workflow](./visuals/04_traceable_workflow.png)
+*Figure: Four elements of an audit-ready AI workflow.*
 
 ### 1. Defined Inputs
 
