@@ -465,6 +465,4 @@ These five prompts work whether you're analyzing orders, projects, clients, depa
 
 ---
 
-*By Svetlana Toohey*
-
 *Related: [Getting the Right Tools Installed](../03-getting-the-right-tools-installed/) | [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Reproducible Accounting](../05-reproducible-accounting/)*

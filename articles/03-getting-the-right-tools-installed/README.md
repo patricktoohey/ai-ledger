@@ -223,6 +223,4 @@ If you want to go from setup to execution, [Your AI Co-Pilot for Accounting](../
 
 ---
 
-*By Svetlana Toohey*
-
 *Related: [Ways to Use Claude: Choosing the Right Interface](../02-ways-to-use-claude/) | [Your AI Co-Pilot for Accounting](../01-ai-copilot-for-accounting/) | [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/)*

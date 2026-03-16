@@ -201,6 +201,4 @@ No detective work required.
 
 ---
 
-*By Svetlana Toohey*
-
 *Related: [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Your AI Co-Pilot for Accounting](../01-ai-copilot-for-accounting/) | [Ways to Use Claude](../02-ways-to-use-claude/)*
