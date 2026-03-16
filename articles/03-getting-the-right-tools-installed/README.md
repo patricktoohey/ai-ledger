@@ -171,7 +171,7 @@ If helpful, I'd be happy to walk through the intended use cases and answer any q
 
 Thank you for your help.
 
-Best,
+Best regards,
 [Name]
 
 ---
