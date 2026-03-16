@@ -1,6 +1,6 @@
 # ai-ledger
 
-Practical articles on using AI tools for financial analysis and accounting workflows. Built for accounting professionals who want to work faster and go deeper -- without becoming developers.
+Practical Python, AI, and automation for accounting and finance teams. Built for professionals who want to work faster and go deeper — without becoming developers.
 
 Each article includes the full write-up, sample data, and the code to reproduce every chart.
 
@@ -15,12 +15,6 @@ Each article includes the full write-up, sample data, and the code to reproduce 
 | 01 | [Your AI Co-Pilot for Accounting](articles/01-ai-copilot-for-accounting/) | Margin analysis, vendor cost inflation, salesperson performance, revenue concentration |
 | 02 | [Ways to Use Claude: Choosing the Right Interface](articles/02-ways-to-use-claude/) | Claude.ai, API, Claude Code, interface comparison, getting started |
 | 03 | [Getting the Right Tools Installed: A Safe Starting Point for Accounting Teams](articles/03-getting-the-right-tools-installed/) | IT approvals, secure adoption, VS Code and Python setup framing, low-risk pilot use cases |
-
----
-
-## Who This Is For
-
-Finance and accounting professionals who want to use AI tools like Claude Code to move from raw data to insight faster -- without writing code from scratch.
 
 ---
 
@@ -41,6 +35,40 @@ To reproduce the analysis in any article:
 1. Download the `data/` folder
 2. Open it in VS Code with Claude Code installed
 3. Follow the prompts in the article
+
+---
+
+## Who This Is For
+
+Contributions are welcome from:
+- Accountants and controllers
+- Finance analysts
+- Auditors
+- Data professionals supporting finance teams
+- Developers building finance tools
+
+Whether you write code or review accounting logic, there's a way to help.
+
+---
+
+## Current Contribution Needs
+
+- Bank reconciliation example with sample data
+- AR aging notebook
+- AP exception testing example
+- Safe, anonymized finance datasets
+- Reviewers for accounting accuracy
+- Beginner-friendly documentation improvements
+
+See the full list at [community/ideas-wanted.md](community/ideas-wanted.md).
+
+---
+
+## How to Contribute
+
+Open an issue, comment on an existing request, or submit a pull request.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details and [community/roadmap.md](community/roadmap.md) for where the project is headed.
 
 ---
 
