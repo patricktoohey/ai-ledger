@@ -467,4 +467,4 @@ These five prompts work whether you're analyzing orders, projects, clients, depa
 
 *By Svetlana Toohey*
 
-*Related: [Where to Start If You're Ready to Work With AI](../00.5-where-to-start-with-ai/) | [Getting the Right Tools Installed](../03-getting-the-right-tools-installed/) | [Ways to Use Claude: Choosing the Right Interface](../02-ways-to-use-claude/)*
+*Related: [Getting the Right Tools Installed](../03-getting-the-right-tools-installed/) | [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Reproducible Accounting](../05-reproducible-accounting/)*

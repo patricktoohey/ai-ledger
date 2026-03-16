@@ -225,4 +225,4 @@ If you want to go from setup to execution, [Your AI Co-Pilot for Accounting](../
 
 *By Svetlana Toohey*
 
-*Related: [Where to Start If You're Ready to Work With AI](../00.5-where-to-start-with-ai/) | [AI Getting Started Toolkit](../00.5-where-to-start-with-ai/ai-getting-started-toolkit.md) | [Ways to Use Claude: Choosing the Right Interface](../02-ways-to-use-claude/) | [Your AI Co-Pilot for Accounting](../01-ai-copilot-for-accounting/)*
+*Related: [Ways to Use Claude: Choosing the Right Interface](../02-ways-to-use-claude/) | [Your AI Co-Pilot for Accounting](../01-ai-copilot-for-accounting/) | [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/)*

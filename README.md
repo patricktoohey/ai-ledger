@@ -15,6 +15,8 @@ Each article includes the full write-up, sample data, and the code to reproduce 
 | 01 | [Your AI Co-Pilot for Accounting](articles/01-ai-copilot-for-accounting/) | Margin analysis, vendor cost inflation, salesperson performance, revenue concentration |
 | 02 | [Ways to Use Claude: Choosing the Right Interface](articles/02-ways-to-use-claude/) | Claude.ai, API, Claude Code, interface comparison, getting started |
 | 03 | [Getting the Right Tools Installed: A Safe Starting Point for Accounting Teams](articles/03-getting-the-right-tools-installed/) | IT approvals, secure adoption, VS Code and Python setup framing, low-risk pilot use cases |
+| 04 | [AI in Accounting Is Not the Wild West Anymore](articles/04-ai-governance-in-accounting/) | AI governance, COSO framework, PCAOB updates, Big Four guidance, audit-ready workflows |
+| 05 | [Reproducible Accounting](articles/05-reproducible-accounting/) | Accounting as code, audit evidence, version control, reproducible financial reporting |
 
 ---
 

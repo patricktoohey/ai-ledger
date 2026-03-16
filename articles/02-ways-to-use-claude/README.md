@@ -178,4 +178,4 @@ If you're curious how to take the next step, the [hands-on walkthrough in Articl
 
 *By Svetlana Toohey*
 
-*Related: [Where to Start If You're Ready to Work With AI](../00.5-where-to-start-with-ai/) | [Getting the Right Tools Installed](../03-getting-the-right-tools-installed/) | [Your AI Co-Pilot for Accounting](../01-ai-copilot-for-accounting/)*
+*Related: [Getting the Right Tools Installed](../03-getting-the-right-tools-installed/) | [Your AI Co-Pilot for Accounting](../01-ai-copilot-for-accounting/) | [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/)*
