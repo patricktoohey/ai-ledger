@@ -79,43 +79,45 @@ print(f"[OK] 04_visual_front.png  ->  {OUT_DIR}")
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 02 – COSO Five Components for Generative AI
 # ─────────────────────────────────────────────────────────────────────────────
-fig2, ax2 = plt.subplots(figsize=(10, 10))
+fig2, ax2 = plt.subplots(figsize=(12, 12))
 fig2.patch.set_facecolor(WHITE)
 ax2.set_facecolor(WHITE)
-ax2.set_xlim(-5.5, 5.5)
-ax2.set_ylim(-5.5, 5.5)
+ax2.set_xlim(-6.5, 6.5)
+ax2.set_ylim(-6.5, 7.0)
 ax2.set_aspect("equal")
 ax2.axis("off")
 
 # Title
-ax2.text(0, 5.1, "COSO Internal Control Components",
+ax2.text(0, 6.5, "COSO Internal Control Components",
          ha="center", va="center",
-         fontsize=18, fontweight="bold", color=DEEP_NAVY)
-ax2.text(0, 4.55, "Applied to Generative AI Governance",
+         fontsize=20, fontweight="bold", color=DEEP_NAVY)
+ax2.text(0, 5.9, "Applied to Generative AI Governance",
          ha="center", va="center",
-         fontsize=13, color=OCEAN_TEAL, fontstyle="italic")
+         fontsize=14, color=OCEAN_TEAL, fontstyle="italic")
 
 # Center circle – Generative AI
-center_circle = plt.Circle((0, 0), 1.3, facecolor=DEEP_NAVY,
+center_circle = plt.Circle((0, 0), 1.4, facecolor=DEEP_NAVY,
                             edgecolor=BRIGHT_TEAL, linewidth=3, zorder=5)
 ax2.add_patch(center_circle)
-ax2.text(0, 0.15, "Generative", ha="center", va="center",
-         fontsize=14, fontweight="bold", color=BRIGHT_TEAL, zorder=6)
-ax2.text(0, -0.3, "AI", ha="center", va="center",
-         fontsize=14, fontweight="bold", color=BRIGHT_TEAL, zorder=6)
+ax2.text(0, 0.2, "Generative", ha="center", va="center",
+         fontsize=15, fontweight="bold", color=BRIGHT_TEAL, zorder=6)
+ax2.text(0, -0.35, "AI", ha="center", va="center",
+         fontsize=15, fontweight="bold", color=BRIGHT_TEAL, zorder=6)
 
-# Five components around the center
+# Five components around the center — titles and descriptions combined inside
 components = [
-    ("Control\nEnvironment",    "Ownership, governance\npolicies, oversight"),
-    ("Risk\nAssessment",        "Prompt manipulation,\nmodel drift, data leakage"),
-    ("Control\nActivities",     "Approval workflows,\nvalidation, access controls"),
-    ("Information &\nCommunication", "Traceability of\ninputs and outputs"),
-    ("Monitoring\nActivities",  "Performance evaluation,\ndetect unexpected behavior"),
+    ("Control\nEnvironment",         "Ownership, governance\npolicies, oversight"),
+    ("Risk\nAssessment",             "Prompt manipulation,\nmodel drift, data leakage"),
+    ("Control\nActivities",          "Approval workflows,\nvalidation, access controls"),
+    ("Information &\nCommunication", "Traceability of inputs\nand outputs"),
+    ("Monitoring\nActivities",       "Performance evaluation,\ndetect unexpected behavior"),
 ]
 
 colors = [BRIGHT_TEAL, GOLDEN_YELLOW, SEA_GREEN, SOFT_SAGE, OCEAN_TEAL]
 text_colors = [WHITE, DEEP_NAVY, WHITE, DEEP_NAVY, WHITE]
-radius = 3.3
+desc_colors = [WHITE, DEEP_NAVY, WHITE, DEEP_NAVY, WHITE]
+radius = 3.6
+bubble_r = 1.55
 angles = [90, 162, 234, 306, 18]
 
 for i, (title, desc) in enumerate(components):
@@ -123,33 +125,30 @@ for i, (title, desc) in enumerate(components):
     cx = radius * np.cos(angle_rad)
     cy = radius * np.sin(angle_rad)
 
-    # Component circle
-    comp_circle = plt.Circle((cx, cy), 1.15, facecolor=colors[i],
+    # Component circle — larger to fit description inside
+    comp_circle = plt.Circle((cx, cy), bubble_r, facecolor=colors[i],
                               edgecolor=DEEP_NAVY, linewidth=2, zorder=3)
     ax2.add_patch(comp_circle)
 
-    # Component title
-    ax2.text(cx, cy + 0.15, title, ha="center", va="center",
-             fontsize=10, fontweight="bold", color=text_colors[i],
+    # Component title (upper half of bubble)
+    ax2.text(cx, cy + 0.4, title, ha="center", va="center",
+             fontsize=11, fontweight="bold", color=text_colors[i],
              linespacing=1.1, zorder=4)
 
+    # Description (lower half of bubble, smaller)
+    ax2.text(cx, cy - 0.6, desc, ha="center", va="center",
+             fontsize=8, color=desc_colors[i], alpha=0.85,
+             linespacing=1.2, zorder=4)
+
     # Connector line from center to component
-    inner_r = 1.35
-    outer_r = radius - 1.2
+    inner_r = 1.45
+    outer_r = radius - bubble_r + 0.05
     x1 = inner_r * np.cos(angle_rad)
     y1 = inner_r * np.sin(angle_rad)
     x2 = outer_r * np.cos(angle_rad)
     y2 = outer_r * np.sin(angle_rad)
     ax2.plot([x1, x2], [y1, y2], color=GRAY_LINE, linewidth=1.5,
              linestyle="--", zorder=1)
-
-    # Description label outside
-    label_r = radius + 1.6
-    lx = label_r * np.cos(angle_rad)
-    ly = label_r * np.sin(angle_rad)
-    ax2.text(lx, ly, desc, ha="center", va="center",
-             fontsize=8.5, color=DEEP_NAVY, fontstyle="italic",
-             linespacing=1.2, zorder=2)
 
 out_path2 = os.path.join(OUT_DIR, "04_coso_five_components.png")
 plt.savefig(out_path2, dpi=180, bbox_inches="tight")
