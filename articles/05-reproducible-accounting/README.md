@@ -201,4 +201,4 @@ No detective work required.
 
 ---
 
-*Related: [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Your AI Co-Pilot for Accounting](../01-ai-copilot-for-accounting/) | [Ways to Use Claude](../02-ways-to-use-claude/)*
+*Related: [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Safe AI Data Workflows](../06-safe-ai-data-workflows/) | [Your AI Co-Pilot for Accounting](../01-ai-copilot-for-accounting/)*
