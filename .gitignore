@@ -2,26 +2,14 @@
 tmpclaude*
 _ul
 
-# Old demo structure (content moved to articles/)
-Demo/Article.md
-Demo/article_visuals/
-Demo/generate_article_visuals.py
-
-# Raw data (moved into article folders)
+# Local working directories
+Demo/
 data_raw/
-
-# Empty infrastructure dirs (not ready to publish)
-data_processed/
-dashboards/
-reconciliations/
-scripts/
 docs/
-pythonmuse_finance_workspace/
 
-# Internal planning doc
+# Internal planning and brand files
 demo.md
-
-# Internal brand guide (not for public)
+plan.md
 SKILL.md
 NOTES.md
 StatusUpdate.md
