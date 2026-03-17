@@ -294,4 +294,4 @@ And fortunately, that is still something AI cannot do nearly as well as a good c
 
 ---
 
-*Related: [Your AI Co-Pilot for Accounting](../01-ai-copilot-for-accounting/) | [Getting the Right Tools Installed](../03-getting-the-right-tools-installed/) | [Reproducible Accounting](../05-reproducible-accounting/)*
+*Related: [Your AI Co-Pilot for Accounting](../01-ai-copilot-for-accounting/) | [Getting the Right Tools Installed](../03-getting-the-right-tools-installed/) | [Reproducible Accounting](../05-reproducible-accounting/) | [AI Governance for Controllers](../07-ai-governance-for-controllers/)*

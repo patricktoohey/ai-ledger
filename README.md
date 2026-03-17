@@ -18,6 +18,7 @@ Each article includes the full write-up, sample data, and the code to reproduce 
 | 04 | [AI in Accounting Is Not the Wild West Anymore](articles/04-ai-governance-in-accounting/) | AI governance, COSO framework, PCAOB updates, Big Four guidance, audit-ready workflows |
 | 05 | [Reproducible Accounting](articles/05-reproducible-accounting/) | Accounting as code, audit evidence, version control, reproducible financial reporting |
 | 06 | [How to Use AI in Accounting Without Sending the Wrong Data](articles/06-safe-ai-data-workflows/) | Data masking, local vs cloud processing, safe AI workflows, QuickBooks demo, validation hooks |
+| 07 | [AI Governance for Controllers](articles/07-ai-governance-for-controllers/) | COSO framework, controller governance, use case inventory, AI skills, agents, VS Code |
 
 ---
 
