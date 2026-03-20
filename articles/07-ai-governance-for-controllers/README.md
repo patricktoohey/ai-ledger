@@ -138,9 +138,9 @@ In other words, the control framework evolves alongside the technology.
 
 ## A Practical Starting Point
 
-To demonstrate this concept, I am building a companion starter repository that shows how a controller-led AI governance structure can be implemented using Claude and VS Code.
+To demonstrate this concept, I have built a companion starter repository that shows how a controller-led AI governance structure can be implemented using Claude and VS Code.
 
-The repository will include:
+The repository includes:
 
 - A sample finance AI policy
 - A use case inventory template
@@ -149,7 +149,7 @@ The repository will include:
 - A simple agent workflow
 - An evidence and audit trail structure
 
-It will be published at [PythonMuse/finance-ai-governance](https://github.com/PythonMuse/finance-ai-governance) when ready.
+You can explore it here: [PythonMuse/accounting_and_finance-ai-governance](https://github.com/PythonMuse/accounting_and_finance-ai-governance)
 
 These are meant as starting points. Every organization will need to adapt the structure to fit its own policies, risk appetite, and tools. But the core idea is the same: governance should live where the work happens.
 

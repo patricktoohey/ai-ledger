@@ -223,4 +223,4 @@ If you want to go from setup to execution, [Your AI Co-Pilot for Accounting](../
 
 ---
 
-*Related: [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Safe AI Data Workflows](../06-safe-ai-data-workflows/) | [Your AI Co-Pilot for Accounting](../01-ai-copilot-for-accounting/)*
+*Related: [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Safe AI Data Workflows](../06-safe-ai-data-workflows/) | [Your AI Co-Pilot for Accounting](../01-ai-copilot-for-accounting/) | [AI Governance for Controllers](../07-ai-governance-for-controllers/)*
