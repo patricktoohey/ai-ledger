@@ -34,10 +34,12 @@ nav:
   - Getting Started:
     - AI Will Not Replace Your Job: 00-ai-will-not-replace-your-job/README.md
     - Where to Start with AI: 00.5-where-to-start-with-ai/README.md
+    - How Accountants Learn AI: 09-how-accountants-learn-ai/README.md
   - Working with AI:
     - Your AI Co-Pilot for Accounting: 01-ai-copilot-for-accounting/README.md
     - Ways to Use Claude: 02-ways-to-use-claude/README.md
     - Getting the Right Tools Installed: 03-getting-the-right-tools-installed/README.md
+    - Why Claude Forgets: 08-why-claude-forgets/README.md
   - Governance & Controls:
     - AI in Accounting Is Not the Wild West: 04-ai-governance-in-accounting/README.md
     - AI Governance for Controllers: 07-ai-governance-for-controllers/README.md
