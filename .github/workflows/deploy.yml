@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - mkdocs-prototype
 
 permissions:
   contents: write
@@ -24,4 +25,4 @@ jobs:
         run: pip install mkdocs-material
 
       - name: Deploy
-        run: mkdocs gh-deploy --force --cname pythonmuse.com
+        run: mkdocs gh-deploy --force
