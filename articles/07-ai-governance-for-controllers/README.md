@@ -96,6 +96,8 @@ Each component plays a role in the governance system:
 
 When combined, these components transform governance from a document into a working system.
 
+For practical examples of AI skills, agents, and Git workflows for accounting teams, see the [AI Accounting Framework](https://github.com/PythonMuse/pythonmuse-ai-accounting-framework).
+
 ---
 
 ## Start Small: One Use Case
@@ -167,4 +169,4 @@ And that is where responsible AI adoption in finance truly begins.
 
 ---
 
-*Related: [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Reproducible Accounting](../05-reproducible-accounting/) | [How to Use AI in Accounting Without Sending the Wrong Data](../06-safe-ai-data-workflows/) | [Why Claude "Forgets"](../08-why-claude-forgets/)*
+*Related: [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Reproducible Accounting](../05-reproducible-accounting/) | [How to Use AI in Accounting Without Sending the Wrong Data](../06-safe-ai-data-workflows/) | [Why Claude "Forgets"](../08-why-claude-forgets/) | [AI Accounting Framework](https://github.com/PythonMuse/pythonmuse-ai-accounting-framework)*

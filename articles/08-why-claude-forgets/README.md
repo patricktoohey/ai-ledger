@@ -139,6 +139,8 @@ The key principle is separation. Raw data stays untouched. Outputs go to a dedic
 
 A complete starter template using this structure is available at [examples/ai-project-memory](../../examples/ai-project-memory/).
 
+For ready-to-copy templates and a complete project folder scaffold, see the [AI Accounting Framework: Project Hygiene](https://github.com/PythonMuse/pythonmuse-ai-accounting-framework/tree/main/08-project-hygiene).
+
 ---
 
 ## Prompts That Make It Work
@@ -215,4 +217,4 @@ Save early. Save often. And give your AI the context it needs to pick up right w
 
 ---
 
-*Related: [Reproducible Accounting](../05-reproducible-accounting/) | [How to Use AI in Accounting Without Sending the Wrong Data](../06-safe-ai-data-workflows/) | [AI Governance for Controllers](../07-ai-governance-for-controllers/)*
+*Related: [Reproducible Accounting](../05-reproducible-accounting/) | [How to Use AI in Accounting Without Sending the Wrong Data](../06-safe-ai-data-workflows/) | [AI Governance for Controllers](../07-ai-governance-for-controllers/) | [AI Accounting Framework](https://github.com/PythonMuse/pythonmuse-ai-accounting-framework)*

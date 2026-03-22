@@ -78,6 +78,8 @@ https://www.python.org/
 
 For practical installation steps in a finance context, reference [Where to Start If You're Ready to Work With AI](../00.5-where-to-start-with-ai/).
 
+For a deeper dive into Python libraries for accounting and annotated code examples, see the [AI Accounting Framework](https://github.com/PythonMuse/pythonmuse-ai-accounting-framework/tree/main/03-python-without-intimidation).
+
 ### AI Assistants
 
 AI assistants can help generate code, explain file structures, and draft documentation.
@@ -223,4 +225,4 @@ If you want to go from setup to execution, [Your AI Co-Pilot for Accounting](../
 
 ---
 
-*Related: [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Safe AI Data Workflows](../06-safe-ai-data-workflows/) | [Your AI Co-Pilot for Accounting](../01-ai-copilot-for-accounting/) | [AI Governance for Controllers](../07-ai-governance-for-controllers/)*
+*Related: [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Safe AI Data Workflows](../06-safe-ai-data-workflows/) | [Your AI Co-Pilot for Accounting](../01-ai-copilot-for-accounting/) | [AI Governance for Controllers](../07-ai-governance-for-controllers/) | [AI Accounting Framework](https://github.com/PythonMuse/pythonmuse-ai-accounting-framework)*

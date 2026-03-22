@@ -275,6 +275,8 @@ This script is available at [`data/verify_masking.py`](./data/verify_masking.py)
 
 If the file contains real vendor names like "ABC Construction" or "Delta Airlines", the script stops the workflow before anything is sent externally.
 
+For more examples of control hooks and data handling patterns, see the [AI Accounting Framework: Hooks as Controls](https://github.com/PythonMuse/pythonmuse-ai-accounting-framework/tree/main/06-hooks-as-controls).
+
 ### Step 4 -- AI Processing
 
 Once the file is verified as masked, it can safely be used with AI.
@@ -347,4 +349,4 @@ Starting with simple guardrails -- such as masking data locally and sharing only
 
 ---
 
-*Related: [Getting the Right Tools Installed](../03-getting-the-right-tools-installed/) | [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [AI Governance for Controllers](../07-ai-governance-for-controllers/)*
+*Related: [Getting the Right Tools Installed](../03-getting-the-right-tools-installed/) | [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [AI Governance for Controllers](../07-ai-governance-for-controllers/) | [AI Accounting Framework](https://github.com/PythonMuse/pythonmuse-ai-accounting-framework)*
