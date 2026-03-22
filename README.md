@@ -19,6 +19,8 @@ Each article includes the full write-up, sample data, and the code to reproduce 
 | 05 | [Reproducible Accounting](articles/05-reproducible-accounting/) | Accounting as code, audit evidence, version control, reproducible financial reporting |
 | 06 | [How to Use AI in Accounting Without Sending the Wrong Data](articles/06-safe-ai-data-workflows/) | Data masking, local vs cloud processing, safe AI workflows, QuickBooks demo, validation hooks |
 | 07 | [AI Governance for Controllers](articles/07-ai-governance-for-controllers/) | COSO framework, controller governance, use case inventory, AI skills, agents, VS Code |
+| 08 | [Why Claude "Forgets" -- And How to Fix It](articles/08-why-claude-forgets/) | Context window, external memory, project files, plan.md, status_update.md, CLAUDE.md |
+| 09 | [How Accountants Learn AI](articles/09-how-accountants-learn-ai/) | Excel-to-AI learning path, 13-skill framework, Markdown, Python, Git, hooks, canary, project hygiene |
 
 ---
 
