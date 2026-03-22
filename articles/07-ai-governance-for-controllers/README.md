@@ -96,8 +96,6 @@ Each component plays a role in the governance system:
 
 When combined, these components transform governance from a document into a working system.
 
-For practical examples of AI skills, agents, and Git workflows for accounting teams, see the [AI Accounting Framework](https://github.com/PythonMuse/pythonmuse-ai-accounting-framework).
-
 ---
 
 ## Start Small: One Use Case
@@ -140,9 +138,9 @@ In other words, the control framework evolves alongside the technology.
 
 ## A Practical Starting Point
 
-To demonstrate this concept, I have built a companion starter repository that shows how a controller-led AI governance structure can be implemented using Claude and VS Code.
+To demonstrate this concept, I am building a companion starter repository that shows how a controller-led AI governance structure can be implemented using Claude and VS Code.
 
-The repository includes:
+The repository will include:
 
 - A sample finance AI policy
 - A use case inventory template
@@ -151,7 +149,7 @@ The repository includes:
 - A simple agent workflow
 - An evidence and audit trail structure
 
-You can explore it here: [PythonMuse/accounting_and_finance-ai-governance](https://github.com/PythonMuse/accounting_and_finance-ai-governance)
+It will be published at [PythonMuse/finance-ai-governance](https://github.com/PythonMuse/finance-ai-governance) when ready.
 
 These are meant as starting points. Every organization will need to adapt the structure to fit its own policies, risk appetite, and tools. But the core idea is the same: governance should live where the work happens.
 
@@ -169,4 +167,4 @@ And that is where responsible AI adoption in finance truly begins.
 
 ---
 
-*Related: [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Reproducible Accounting](../05-reproducible-accounting/) | [How to Use AI in Accounting Without Sending the Wrong Data](../06-safe-ai-data-workflows/) | [Why Claude "Forgets"](../08-why-claude-forgets/) | [AI Accounting Framework](https://github.com/PythonMuse/pythonmuse-ai-accounting-framework)*
+*Related: [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Reproducible Accounting](../05-reproducible-accounting/) | [How to Use AI in Accounting Without Sending the Wrong Data](../06-safe-ai-data-workflows/)*

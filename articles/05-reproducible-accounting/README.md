@@ -84,8 +84,6 @@ A simplified architecture might look like this:
 
 Financial statements become the output of a pipeline, not manually assembled documents.
 
-For hands-on templates and a project folder scaffold, see the [AI Accounting Framework: Data Structure](https://github.com/PythonMuse/pythonmuse-ai-accounting-framework/tree/main/09-data-structure).
-
 ---
 
 ## Why This Matters for Audit Evidence
@@ -203,4 +201,4 @@ No detective work required.
 
 ---
 
-*Related: [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Safe AI Data Workflows](../06-safe-ai-data-workflows/) | [AI Governance for Controllers](../07-ai-governance-for-controllers/) | [Why Claude "Forgets"](../08-why-claude-forgets/) | [AI Accounting Framework](https://github.com/PythonMuse/pythonmuse-ai-accounting-framework)*
+*Related: [AI in Accounting Is Not the Wild West Anymore](../04-ai-governance-in-accounting/) | [Safe AI Data Workflows](../06-safe-ai-data-workflows/) | [AI Governance for Controllers](../07-ai-governance-for-controllers/)*
