@@ -80,7 +80,7 @@
 
 /* Hide right TOC sidebar on all screens — not enough content to warrant it */
 .md-sidebar--secondary {
-  display: none;
+  display: none !important;
 }
 
 /* Hide left nav sidebar on desktop only — tabs carry navigation there.
