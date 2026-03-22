@@ -21,6 +21,8 @@ Each article includes the full write-up, sample data, and the code to reproduce 
 | 05 | [Reproducible Accounting](05-reproducible-accounting/README.md) | Accounting as code, audit evidence, version control |
 | 06 | [How to Use AI Without Sending the Wrong Data](06-safe-ai-data-workflows/README.md) | Data masking, local vs cloud processing, safe AI workflows |
 | 07 | [AI Governance for Controllers](07-ai-governance-for-controllers/README.md) | COSO framework, controller governance, use case inventory |
+| 08 | [Why Claude Forgets](08-why-claude-forgets/README.md) | context windows |
+| 09 | [How Accountants Learn AI](09-how-accountants-learn-ai/README.md) | progressions to AI fluency |
 
 ---
 
