@@ -78,4 +78,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details and [community/roadmap.md](co
 
 ---
 
+## License
+
+This project uses a dual license:
+
+- **Written content** (articles, templates, worksheets, examples, documentation) is licensed under [CC BY-NC-SA 4.0](LICENSE) — you may share and adapt with attribution, for non-commercial purposes, under the same license.
+- **Python source code** (`.py` files) is licensed under the [MIT License](LICENSE-CODE) — free to use, modify, and distribute.
+
+See [LICENSE](LICENSE) and [LICENSE-CODE](LICENSE-CODE) for full details.
+
+---
+
 *By Svetlana Toohey*
