@@ -21,6 +21,9 @@ Each article includes the full write-up, sample data, and the code to reproduce 
 | 07 | [AI Governance for Controllers](articles/07-ai-governance-for-controllers/) | COSO framework, controller governance, use case inventory, AI skills, agents, VS Code |
 | 08 | [Why Claude "Forgets" -- And How to Fix It](articles/08-why-claude-forgets/) | Context window, external memory, project files, plan.md, status_update.md, CLAUDE.md |
 | 09 | [How Accountants Learn AI](articles/09-how-accountants-learn-ai/) | Excel-to-AI learning path, 13-skill framework, Markdown, Python, Git, hooks, canary, project hygiene |
+| 10 | [AI in Accounting: Real Use Cases -- and How to Structure Them](articles/10-ai-use-cases-and-structure/) | Reconciliations, variance analysis, ad hoc analysis, 3-tier classification, exploratory vs repeatable vs audit-ready |
+| 11 | [From One-Time Analysis to Repeatable Workflows](articles/11-one-time-to-repeatable-workflows/) | 9-step workflow pattern, data masking, headers-only, hooks, plan approval, SKILL documentation |
+| 12 | [When to Trust AI to Run Your Accounting Workflows](articles/12-audit-ready-ai-workflows/) | Audit-ready framework, COSO mapping, governance controls, logged execution, canary checks |
 
 ---
 
