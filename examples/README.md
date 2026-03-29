@@ -22,6 +22,8 @@ examples/
 |---------|-------------|
 | [ai-project-memory](ai-project-memory/) | Starter template for AI-assisted projects with external memory files (plan.md, status_update.md, CLAUDE.md) |
 | [trust-but-verify-checklist](trust-but-verify-checklist/) | Six-section audit-friendly checklist for controlling AI workflows in accounting -- from data masking through documentation |
+| [skill-bank-reconciliation](skill-bank-reconciliation/) | Reusable SKILL.md for bank reconciliation -- matching bank to GL, classifying exceptions, audit-ready output |
+| [skill-margin-analysis](skill-margin-analysis/) | Reusable SKILL.md for margin analysis -- gross margin by segment, period comparison, concentration risk |
 
 ---
 

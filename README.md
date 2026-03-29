@@ -25,6 +25,7 @@ Each article includes the full write-up, sample data, and the code to reproduce 
 | 11 | [From One-Time Analysis to Repeatable Workflows](articles/11-one-time-to-repeatable-workflows/) | 9-step workflow pattern, data masking, headers-only, hooks, plan approval, SKILL documentation |
 | 12 | [When to Trust AI to Run Your Accounting Workflows](articles/12-audit-ready-ai-workflows/) | Audit-ready framework, COSO mapping, governance controls, logged execution, canary checks |
 | 13 | [AI in Accounting Isn't Just About Efficiency -- It's About Control](articles/13-zero-trust-ai-accounting/) | Zero Trust for AI, OWASP LLM risks, data controls, trust but verify, four-level framework, checklist |
+| 14 | [Stop Using One AI Like It Is Excel](articles/14-ai-team-for-accountants/) | Claude vs ChatGPT vs Copilot, model orchestration, skills, GitHub as distribution layer, folder structure as prompt |
 
 ---
 

@@ -177,3 +177,5 @@ Phase 2 deferred to a later session to keep context clean.
 | `github-readme-diagram-mermaid.md` | Phase 2 — repo README |
 | `github-readme-diagram.png` | Phase 2 — repo README (fallback) |
 | Duplicate `(1)` files | Ignore — same content |
+
+Subagents - update to note that should run lower models 
