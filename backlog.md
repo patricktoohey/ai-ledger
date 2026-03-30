@@ -1,7 +1,36 @@
-# Backlog — Article 07 + Companion Repo
+# Backlog — PythonMuse ai-ledger
 
-Source material: `StatusUpdate.md` lines 112–2463 + `docs/To review/`
-Last updated: 2026-03-16
+Source material: `StatusUpdate.md` + `docs/To review/`
+Last updated: 2026-03-29
+
+---
+
+## Review Queue — Articles 14 and 15
+
+### Article 14: Stop Using One AI Like It Is Excel
+- [ ] Review `articles/14-ai-team-for-accountants/README.md` for content accuracy
+- [ ] Verify line 69 claim about Sonnet ("thinks fast enough to keep up with real reconciliation volume")
+- [ ] Review visuals on PowerPoint / bright light readability
+- [ ] Review `examples/skill-bank-reconciliation/SKILL.md` (UC-001)
+- [ ] Review `examples/skill-margin-analysis/SKILL.md` (UC-003)
+
+### Article 15: "AI Can't Work With Our Excel Files"... or Can It?
+- [ ] Review `articles/15-ai-and-excel-files/README.md` for content accuracy
+- [ ] Review demo workbook `articles/15-ai-and-excel-files/data/monthly_financial_workbook.xlsx` — check tabs, data realism, intentional pivot mismatch
+- [ ] Review `examples/skill-excel-interpretation/SKILL.md` (UC-004)
+- [ ] Review visuals: hero image and three-tier data approach chart
+- [ ] Test demo scenario: upload workbook to Claude without vs. with the Skill
+
+### Workflow Kit (not yet published)
+- [ ] Review `Development/pythonmuse-workflow-kit/` folder structure and contents
+- [ ] Initialize as git repo and push to `PythonMuse/pythonmuse-workflow-kit`
+- [ ] Enable "Template repository" setting on GitHub
+- [ ] Verify Article 14 link to workflow kit resolves after push
+
+### Cross-Cutting
+- [ ] Write LinkedIn posts for Articles 14 and 15
+- [ ] Consider updating Article 13 visuals to use new contrast/style rules (currently uses old style)
+- [ ] Update SKILL.md visual contrast rules in Article 13 generate_visuals.py if needed
 
 ---
 
