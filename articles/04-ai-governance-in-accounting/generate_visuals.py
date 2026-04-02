@@ -18,7 +18,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.patches import Rectangle, FancyBboxPatch
-import numpy as np
 import os
 
 # ── Output directory ──────────────────────────────────────────────────────────
@@ -39,14 +38,24 @@ WHITE         = "#FFFFFF"
 ALERT_RED     = "#E05252"
 GRAY_BG       = "#F4F6F7"
 GRAY_LINE     = "#CCCCCC"
+LIGHT_GRAY    = "#F5F5F5"
+
+# -- Text contrast helper (SKILL.md mandatory rule 3) -----------------------
+DARK_BG_COLORS = {DEEP_NAVY, MIDNIGHT_TEAL, OCEAN_TEAL, SEA_GREEN}
+
+def text_color_for(bg):
+    """Return correct text color per SKILL.md contrast rule."""
+    if bg in DARK_BG_COLORS:
+        return WHITE
+    return DEEP_NAVY
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 01 – Hero / Front Image
 # ─────────────────────────────────────────────────────────────────────────────
 fig1, ax1 = plt.subplots(figsize=(12, 6))
-fig1.patch.set_facecolor(DEEP_NAVY)
-ax1.set_facecolor(DEEP_NAVY)
+fig1.patch.set_facecolor(WHITE)
+ax1.set_facecolor(WHITE)
 ax1.set_xlim(0, 12)
 ax1.set_ylim(0, 6)
 ax1.axis("off")
@@ -54,21 +63,21 @@ ax1.axis("off")
 # Title
 ax1.text(6, 3.8, "AI in Accounting Is Not\nthe Wild West Anymore",
          ha="center", va="center",
-         fontsize=26, fontweight="bold", color=BRIGHT_TEAL,
+         fontsize=26, fontweight="bold", color=DEEP_NAVY,
          linespacing=1.3)
 
 # Subtitle
 ax1.text(6, 2.2, "But It's Also Not Plug-and-Play",
          ha="center", va="center",
-         fontsize=16, color=GOLDEN_YELLOW, fontstyle="italic")
+         fontsize=16, color=OCEAN_TEAL, fontstyle="italic")
 
 # Divider line
-ax1.plot([3, 9], [1.5, 1.5], color=OCEAN_TEAL, linewidth=2)
+ax1.plot([3, 9], [1.5, 1.5], color=BRIGHT_TEAL, linewidth=2)
 
 # Byline
-ax1.text(6, 0.9, "PythonMuse  |  By Svetlana Toohey",
+ax1.text(6, 0.9, "PythonMuse LLC",
          ha="center", va="center",
-         fontsize=11, color=WHITE, alpha=0.7)
+         fontsize=12, color=OCEAN_TEAL)
 
 out_path1 = os.path.join(OUT_DIR, "04_visual_front.png")
 plt.savefig(out_path1, dpi=180, bbox_inches="tight")
@@ -78,77 +87,101 @@ print(f"[OK] 04_visual_front.png  ->  {OUT_DIR}")
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 02 – COSO Five Components for Generative AI
+#   Landscape layout — PowerPoint-friendly, text fits in rounded-rect cards
 # ─────────────────────────────────────────────────────────────────────────────
-fig2, ax2 = plt.subplots(figsize=(12, 12))
+fig2, ax2 = plt.subplots(figsize=(14, 10))
 fig2.patch.set_facecolor(WHITE)
 ax2.set_facecolor(WHITE)
-ax2.set_xlim(-6.5, 6.5)
-ax2.set_ylim(-6.5, 7.0)
-ax2.set_aspect("equal")
+ax2.set_xlim(0, 14)
+ax2.set_ylim(0, 10)
 ax2.axis("off")
 
-# Title
-ax2.text(0, 6.5, "COSO Internal Control Components",
+# Title — top of canvas with clear space above cards
+ax2.text(7, 9.55, "COSO Internal Control Components",
          ha="center", va="center",
          fontsize=20, fontweight="bold", color=DEEP_NAVY)
-ax2.text(0, 5.9, "Applied to Generative AI Governance",
+ax2.text(7, 9.0, "Applied to Generative AI Governance",
          ha="center", va="center",
          fontsize=14, color=OCEAN_TEAL, fontstyle="italic")
 
-# Center circle – Generative AI
-center_circle = plt.Circle((0, 0), 1.4, facecolor=DEEP_NAVY,
-                            edgecolor=BRIGHT_TEAL, linewidth=3, zorder=5)
-ax2.add_patch(center_circle)
-ax2.text(0, 0.2, "Generative", ha="center", va="center",
-         fontsize=15, fontweight="bold", color=BRIGHT_TEAL, zorder=6)
-ax2.text(0, -0.35, "AI", ha="center", va="center",
-         fontsize=15, fontweight="bold", color=BRIGHT_TEAL, zorder=6)
+# Center hub — "Generative AI"
+hub_w, hub_h = 3.0, 1.3
+hub_cx, hub_cy = 7, 5.0
+hub_box = FancyBboxPatch(
+    (hub_cx - hub_w / 2, hub_cy - hub_h / 2), hub_w, hub_h,
+    boxstyle="round,pad=0.2",
+    facecolor=DEEP_NAVY, edgecolor="none", zorder=5)
+ax2.add_patch(hub_box)
+ax2.text(hub_cx, hub_cy, "Generative AI",
+         ha="center", va="center",
+         fontsize=16, fontweight="bold",
+         color=text_color_for(DEEP_NAVY), zorder=6)
 
-# Five components around the center — titles and descriptions combined inside
+# Five component cards — 3 on top row, 2 on bottom row
 components = [
-    ("Control\nEnvironment",         "Ownership, governance\npolicies, oversight"),
-    ("Risk\nAssessment",             "Prompt manipulation,\nmodel drift, data leakage"),
-    ("Control\nActivities",          "Approval workflows,\nvalidation, access controls"),
-    ("Information &\nCommunication", "Traceability of inputs\nand outputs"),
-    ("Monitoring\nActivities",       "Performance evaluation,\ndetect unexpected behavior"),
+    ("Control\nEnvironment",         "Ownership, governance\npolicies, oversight",         BRIGHT_TEAL),
+    ("Risk\nAssessment",             "Prompt manipulation,\nmodel drift, data leakage",    GOLDEN_YELLOW),
+    ("Control\nActivities",          "Approval workflows,\nvalidation, access controls",   SEA_GREEN),
+    ("Information &\nCommunication", "Traceability of inputs\nand outputs",                SOFT_SAGE),
+    ("Monitoring\nActivities",       "Performance evaluation,\ndetect unexpected behavior", OCEAN_TEAL),
 ]
 
-colors = [BRIGHT_TEAL, GOLDEN_YELLOW, SEA_GREEN, SOFT_SAGE, OCEAN_TEAL]
-text_colors = [WHITE, DEEP_NAVY, WHITE, DEEP_NAVY, WHITE]
-desc_colors = [WHITE, DEEP_NAVY, WHITE, DEEP_NAVY, WHITE]
-radius = 3.6
-bubble_r = 1.55
-angles = [90, 162, 234, 306, 18]
+card_w = 3.6
+card_h = 2.0
 
-for i, (title, desc) in enumerate(components):
-    angle_rad = np.radians(angles[i])
-    cx = radius * np.cos(angle_rad)
-    cy = radius * np.sin(angle_rad)
+# Top row: 3 cards evenly spaced, below title with clear gap
+top_y = 6.3                             # bottom edge of top-row cards (tops at 8.1)
+top_gap = (14 - 3 * card_w) / 4        # equal gutters
+top_xs = [top_gap + i * (card_w + top_gap) for i in range(3)]
 
-    # Component circle — larger to fit description inside
-    comp_circle = plt.Circle((cx, cy), bubble_r, facecolor=colors[i],
-                              edgecolor=DEEP_NAVY, linewidth=2, zorder=3)
-    ax2.add_patch(comp_circle)
+# Bottom row: 2 cards centred
+bot_y = 0.8
+bot_gap = (14 - 2 * card_w) / 3
+bot_xs = [bot_gap + i * (card_w + bot_gap) for i in range(2)]
 
-    # Component title (upper half of bubble)
-    ax2.text(cx, cy + 0.4, title, ha="center", va="center",
-             fontsize=11, fontweight="bold", color=text_colors[i],
+positions = [(top_xs[0], top_y), (top_xs[1], top_y), (top_xs[2], top_y),
+             (bot_xs[0], bot_y), (bot_xs[1], bot_y)]
+
+hub_cx, hub_cy = 7, 5.0
+
+for i, (title, desc, color) in enumerate(components):
+    x, y = positions[i]
+
+    card = FancyBboxPatch(
+        (x, y), card_w, card_h,
+        boxstyle="round,pad=0.15",
+        facecolor=color, edgecolor="none", zorder=3)
+    ax2.add_patch(card)
+
+    txt = text_color_for(color)
+    cx = x + card_w / 2
+    cy = y + card_h / 2
+
+    # Title (upper portion of card)
+    ax2.text(cx, cy + 0.32, title,
+             ha="center", va="center",
+             fontsize=13, fontweight="bold", color=txt,
              linespacing=1.1, zorder=4)
 
-    # Description (lower half of bubble, smaller)
-    ax2.text(cx, cy - 0.6, desc, ha="center", va="center",
-             fontsize=8, color=desc_colors[i], alpha=0.85,
+    # Description (lower portion of card)
+    ax2.text(cx, cy - 0.42, desc,
+             ha="center", va="center",
+             fontsize=12, color=txt,
              linespacing=1.2, zorder=4)
 
-    # Connector line from center to component
-    inner_r = 1.45
-    outer_r = radius - bubble_r + 0.05
-    x1 = inner_r * np.cos(angle_rad)
-    y1 = inner_r * np.sin(angle_rad)
-    x2 = outer_r * np.cos(angle_rad)
-    y2 = outer_r * np.sin(angle_rad)
-    ax2.plot([x1, x2], [y1, y2], color=GRAY_LINE, linewidth=1.5,
-             linestyle="--", zorder=1)
+    # Dashed connector line from card centre toward hub centre
+    dx = hub_cx - cx
+    dy = hub_cy - cy
+    dist = (dx**2 + dy**2) ** 0.5
+    if dist > 0:
+        ux, uy = dx / dist, dy / dist
+        lx1 = cx + ux * 1.25
+        ly1 = cy + uy * 1.25
+        lx2 = hub_cx - ux * 1.0
+        ly2 = hub_cy - uy * 1.0
+        ax2.plot([lx1, lx2], [ly1, ly2],
+                 color=GRAY_LINE, linewidth=1.5,
+                 linestyle="--", zorder=1)
 
 out_path2 = os.path.join(OUT_DIR, "04_coso_five_components.png")
 plt.savefig(out_path2, dpi=180, bbox_inches="tight")
@@ -169,7 +202,7 @@ ax3.axis("off")
 # Title
 ax3.text(7, 5.5, "Structuring AI Workflows for Audit-Ready Evidence",
          ha="center", va="center",
-         fontsize=17, fontweight="bold", color=DEEP_NAVY)
+         fontsize=18, fontweight="bold", color=DEEP_NAVY)
 ax3.text(7, 5.0, "Every output must be traceable",
          ha="center", va="center",
          fontsize=12, color=OCEAN_TEAL, fontstyle="italic")
@@ -194,23 +227,23 @@ for i, (title, desc, color) in enumerate(steps):
     box = FancyBboxPatch(
         (x, y_center - box_height / 2), box_width, box_height,
         boxstyle="round,pad=0.15",
-        facecolor=color, edgecolor=DEEP_NAVY, linewidth=2, zorder=2
+        facecolor=color, edgecolor="none", linewidth=2, zorder=2
     )
     ax3.add_patch(box)
 
     # Determine text color based on background
-    txt_color = DEEP_NAVY if color in [GOLDEN_YELLOW, WARM_GLOW, SOFT_SAGE] else WHITE
+    txt_color = text_color_for(color)
 
     # Title
     ax3.text(x + box_width / 2, y_center + 0.65, title,
              ha="center", va="center",
-             fontsize=12, fontweight="bold", color=txt_color,
+             fontsize=13, fontweight="bold", color=txt_color,
              linespacing=1.2, zorder=3)
 
     # Description
     ax3.text(x + box_width / 2, y_center - 0.55, desc,
              ha="center", va="center",
-             fontsize=9, color=txt_color, alpha=0.9,
+             fontsize=12, color=txt_color, alpha=0.9,
              linespacing=1.3, zorder=3)
 
     # Arrow between boxes
@@ -230,7 +263,7 @@ ax3.text(7, 0.45,
          ha="center", va="center",
          fontsize=10.5, color=DEEP_NAVY, fontstyle="italic",
          bbox=dict(boxstyle="round,pad=0.45",
-                   facecolor="#FFF9EC", edgecolor=GOLDEN_YELLOW, linewidth=2.0),
+                   facecolor="#FFF9EC", edgecolor="none", linewidth=2.0),
          zorder=5)
 
 out_path3 = os.path.join(OUT_DIR, "04_traceable_workflow.png")

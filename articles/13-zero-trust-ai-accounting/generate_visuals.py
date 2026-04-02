@@ -24,7 +24,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR    = os.path.join(SCRIPT_DIR, "visuals")
 os.makedirs(OUT_DIR, exist_ok=True)
 
-# -- PythonMuse brand colors -------------------------------------------------
+# -- PythonMuse brand colors (SKILL.md standard block) -----------------------
 DEEP_NAVY     = "#002639"
 MIDNIGHT_TEAL = "#003144"
 BRIGHT_TEAL   = "#3ABFB9"
@@ -34,44 +34,53 @@ OCEAN_TEAL    = "#005F6F"
 SOFT_SAGE     = "#91BE8E"
 SEA_GREEN     = "#2BA19A"
 WHITE         = "#FFFFFF"
+LIGHT_GRAY    = "#F5F5F5"
 ALERT_RED     = "#E05252"
 ALERT_ORANGE  = "#E07D3B"
+
+# -- Text contrast helper (SKILL.md mandatory rule 3) -----------------------
+DARK_BG_COLORS = {DEEP_NAVY, MIDNIGHT_TEAL, OCEAN_TEAL, SEA_GREEN, ALERT_RED, ALERT_ORANGE}
+
+def text_color_for(bg):
+    """Return correct text color per SKILL.md contrast rule."""
+    if bg in DARK_BG_COLORS:
+        return WHITE
+    return DEEP_NAVY
 
 
 # -----------------------------------------------------------------------------
 # Visual 01 -- Hero / Front Image
 # -----------------------------------------------------------------------------
 fig1, ax1 = plt.subplots(figsize=(12, 6))
-fig1.patch.set_facecolor(DEEP_NAVY)
-ax1.set_facecolor(DEEP_NAVY)
+fig1.patch.set_facecolor(WHITE)
+ax1.set_facecolor(WHITE)
 ax1.set_xlim(0, 12)
 ax1.set_ylim(0, 6)
 ax1.axis("off")
 
 ax1.text(6, 3.8, "AI in Accounting Isn't Just\nAbout Efficiency -- It's About Control",
          ha="center", va="center",
-         fontsize=22, fontweight="bold", color=BRIGHT_TEAL,
+         fontsize=22, fontweight="bold", color=DEEP_NAVY,
          linespacing=1.4)
 
 ax1.text(6, 2.4, "Why Zero Trust principles are already built into how good accountants think",
          ha="center", va="center",
-         fontsize=12, color=GOLDEN_YELLOW, style="italic")
+         fontsize=14, color=OCEAN_TEAL, style="italic")
 
-ax1.text(6, 1.4, "PythonMuse  |  Svetlana Toohey  |  March 2026",
+ax1.text(6, 1.4, "PythonMuse LLC  |  March 2026",
          ha="center", va="center",
-         fontsize=11, color=WHITE, alpha=0.7)
+         fontsize=12, color=OCEAN_TEAL, alpha=0.7)
 
-ax1.plot([2, 10], [1.9, 1.9], color=OCEAN_TEAL, linewidth=1.5, alpha=0.5)
+ax1.plot([2, 10], [1.9, 1.9], color=BRIGHT_TEAL, linewidth=1.5, alpha=0.5)
 
-# Trust but Verify label
-trust_box = FancyBboxPatch((4.5, 0.4), 3, 0.7,
-                            boxstyle="round,pad=0.1",
-                            facecolor=OCEAN_TEAL, edgecolor=BRIGHT_TEAL,
-                            linewidth=1, alpha=0.8)
+# Trust but Verify label — standout callout
+trust_box = FancyBboxPatch((4.6, 0.35), 2.8, 0.6,
+                            boxstyle="round,pad=0.08",
+                            facecolor=GOLDEN_YELLOW, edgecolor="none")
 ax1.add_patch(trust_box)
-ax1.text(6, 0.75, "Trust, but verify.",
+ax1.text(6, 0.65, "Trust, but verify.",
          ha="center", va="center",
-         fontsize=13, fontweight="bold", color=WHITE)
+         fontsize=15, fontweight="bold", color=DEEP_NAVY)
 
 fig1.savefig(os.path.join(OUT_DIR, "13_visual_front.png"),
              dpi=180, bbox_inches="tight", facecolor=fig1.get_facecolor())
@@ -83,19 +92,19 @@ print("  Saved 13_visual_front.png")
 # Visual 02 -- The Four-Level Trust Ladder
 # -----------------------------------------------------------------------------
 fig2, ax2 = plt.subplots(figsize=(13, 11))
-fig2.patch.set_facecolor(DEEP_NAVY)
-ax2.set_facecolor(DEEP_NAVY)
+fig2.patch.set_facecolor(WHITE)
+ax2.set_facecolor(WHITE)
 ax2.set_xlim(0, 13)
 ax2.set_ylim(0, 12)
 ax2.axis("off")
 
 ax2.text(6.5, 11.4, "Trust, but Verify",
          ha="center", va="center",
-         fontsize=22, fontweight="bold", color=WHITE)
+         fontsize=22, fontweight="bold", color=DEEP_NAVY)
 
 ax2.text(6.5, 10.8, "Applying Accounting Discipline to AI Workflows",
          ha="center", va="center",
-         fontsize=12, color=GOLDEN_YELLOW, style="italic")
+         fontsize=14, color=OCEAN_TEAL, style="italic")
 
 # Level definitions
 levels = [
@@ -103,7 +112,6 @@ levels = [
         "num": "Level 1",
         "label": "Unsafe",
         "color": ALERT_RED,
-        "text_dark": False,
         "points": [
             "Raw data pasted into AI",
             "No masking or documentation",
@@ -116,7 +124,6 @@ levels = [
         "num": "Level 2",
         "label": "Aware",
         "color": ALERT_ORANGE,
-        "text_dark": False,
         "points": [
             "Some hesitation before sharing data",
             "Partial masking applied",
@@ -129,7 +136,6 @@ levels = [
         "num": "Level 3",
         "label": "Controlled  (PythonMuse Starting Point)",
         "color": GOLDEN_YELLOW,
-        "text_dark": True,
         "points": [
             "Data masked before processing",
             "Only necessary fields shared",
@@ -142,7 +148,6 @@ levels = [
         "num": "Level 4",
         "label": "Verified  (Audit-Ready)",
         "color": SEA_GREEN,
-        "text_dark": False,
         "points": [
             "Structured input/output folders",
             "plan.md + status_update.md",
@@ -163,29 +168,28 @@ for i, lv in enumerate(levels):
     y_top = cards_top - i * (card_height + card_gap)
     y_center = y_top - card_height / 2
 
+    tc = text_color_for(lv["color"])
+
     bg = FancyBboxPatch((card_x_left, y_top - card_height), card_width, card_height,
                         boxstyle="round,pad=0.15",
-                        facecolor=lv["color"], edgecolor=WHITE,
-                        linewidth=0.6, alpha=0.92)
+                        facecolor=lv["color"], edgecolor="none",
+                        alpha=0.92)
     ax2.add_patch(bg)
-
-    tc = DEEP_NAVY if lv["text_dark"] else WHITE
 
     # Level number badge
     badge = FancyBboxPatch((card_x_left + 0.15, y_center - 0.35), 1.5, 0.7,
                             boxstyle="round,pad=0.08",
-                            facecolor=DEEP_NAVY if not lv["text_dark"] else OCEAN_TEAL,
-                            edgecolor="none", alpha=0.35)
+                            facecolor=DEEP_NAVY, edgecolor="none", alpha=0.25)
     ax2.add_patch(badge)
     ax2.text(card_x_left + 0.9, y_center,
              lv["num"], ha="center", va="center",
-             fontsize=9, fontweight="bold", color=WHITE, alpha=0.9)
+             fontsize=10, fontweight="bold", color=tc, alpha=0.9)
 
     # Level label
     ax2.text(card_x_left + 2.0, y_top - 0.42,
              lv["label"],
              ha="left", va="center",
-             fontsize=12, fontweight="bold", color=tc)
+             fontsize=15, fontweight="bold", color=tc)
 
     # Bullet points (two columns of two)
     for j, pt in enumerate(lv["points"]):
@@ -195,23 +199,23 @@ for i, lv in enumerate(levels):
         py = y_top - 0.95 - row * 0.52
         ax2.text(px, py, f"  {pt}",
                  ha="left", va="center",
-                 fontsize=9, color=tc, alpha=0.88)
+                 fontsize=12, color=tc, alpha=0.88)
 
     # Risk / note line
     ax2.text(card_x_left + 2.0, y_top - 1.82,
              lv["risk"],
              ha="left", va="center",
-             fontsize=9, color=tc, alpha=0.7, style="italic")
+             fontsize=12, color=tc, alpha=0.7, style="italic")
 
 # Bottom tagline
 ax2.text(6.5, 0.55,
          "AI in accounting should follow the same principle we have always used:  Trust, but verify.",
          ha="center", va="center",
-         fontsize=10, color=BRIGHT_TEAL, style="italic")
+         fontsize=12, color=OCEAN_TEAL, style="italic")
 
-ax2.text(6.5, 0.18, "PythonMuse",
+ax2.text(6.5, 0.18, "PythonMuse LLC",
          ha="center", va="center",
-         fontsize=9, color=WHITE, alpha=0.45)
+         fontsize=10, color=DEEP_NAVY, alpha=0.45)
 
 fig2.savefig(os.path.join(OUT_DIR, "13_trust_ladder.png"),
              dpi=180, bbox_inches="tight", facecolor=fig2.get_facecolor())
@@ -223,19 +227,19 @@ print("  Saved 13_trust_ladder.png")
 # Visual 03 -- Checklist Overview
 # -----------------------------------------------------------------------------
 fig3, ax3 = plt.subplots(figsize=(12, 9))
-fig3.patch.set_facecolor(DEEP_NAVY)
-ax3.set_facecolor(DEEP_NAVY)
+fig3.patch.set_facecolor(WHITE)
+ax3.set_facecolor(WHITE)
 ax3.set_xlim(0, 12)
 ax3.set_ylim(0, 10)
 ax3.axis("off")
 
 ax3.text(6, 9.5, "PythonMuse -- Trust but Verify Checklist",
          ha="center", va="center",
-         fontsize=17, fontweight="bold", color=BRIGHT_TEAL)
+         fontsize=20, fontweight="bold", color=DEEP_NAVY)
 
 ax3.text(6, 9.0, "Audit-Friendly AI Workflow for Accounting",
          ha="center", va="center",
-         fontsize=10, color=GOLDEN_YELLOW, style="italic")
+         fontsize=14, color=OCEAN_TEAL, style="italic")
 
 sections = [
     ("1. Before Using AI",   "Data Control",          ALERT_RED,     "Mask, minimize, confirm data"),
@@ -254,40 +258,39 @@ positions = [
 ]
 
 for (x, y), (num, title, color, desc) in zip(positions, sections):
+    tc = text_color_for(color)
+
     box = FancyBboxPatch((x - 1.2, y - 0.95), 4.3, 1.75,
                          boxstyle="round,pad=0.15",
-                         facecolor=color, edgecolor=WHITE,
-                         linewidth=0.5, alpha=0.9)
+                         facecolor=color, edgecolor="none",
+                         alpha=0.9)
     ax3.add_patch(box)
-
-    is_dark_text = color in (GOLDEN_YELLOW, WARM_GLOW, SOFT_SAGE)
-    tc = DEEP_NAVY if is_dark_text else WHITE
 
     ax3.text(x + 0.95, y + 0.45, num,
              ha="center", va="center",
-             fontsize=9, fontweight="bold", color=tc, alpha=0.65)
+             fontsize=10, fontweight="bold", color=tc, alpha=0.65)
 
     ax3.text(x + 0.95, y - 0.05, title,
              ha="center", va="center",
-             fontsize=11, fontweight="bold", color=tc)
+             fontsize=13, fontweight="bold", color=tc)
 
     ax3.text(x + 0.95, y - 0.54, desc,
              ha="center", va="center",
-             fontsize=8.5, color=tc, alpha=0.82, style="italic")
+             fontsize=12, color=tc, alpha=0.82, style="italic")
 
 ax3.text(6, 1.6,
          "If you can check every box -- your workflow is controlled and reviewable.",
          ha="center", va="center",
-         fontsize=10, fontweight="bold", color=GOLDEN_YELLOW)
+         fontsize=13, fontweight="bold", color=OCEAN_TEAL)
 
 ax3.text(6, 1.1,
          "Controlled  |  Repeatable  |  Reviewable  |  Explainable",
          ha="center", va="center",
-         fontsize=9, color=BRIGHT_TEAL)
+         fontsize=12, color=OCEAN_TEAL)
 
-ax3.text(6, 0.4, "PythonMuse -- Practical AI for Finance Teams",
+ax3.text(6, 0.4, "PythonMuse -- Practical AI for Accounting and Finance Professionals",
          ha="center", va="center",
-         fontsize=8, color=WHITE, alpha=0.45)
+         fontsize=10, color=DEEP_NAVY, alpha=0.45)
 
 fig3.savefig(os.path.join(OUT_DIR, "13_checklist_overview.png"),
              dpi=180, bbox_inches="tight", facecolor=fig3.get_facecolor())

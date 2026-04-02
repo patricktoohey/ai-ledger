@@ -37,6 +37,16 @@ WHITE         = "#FFFFFF"
 ALERT_RED     = "#E05252"
 GRAY_BG       = "#F4F6F7"
 GRAY_LINE     = "#CCCCCC"
+LIGHT_GRAY    = "#F5F5F5"
+
+# -- Text contrast helper (SKILL.md mandatory rule 3) -----------------------
+DARK_BG_COLORS = {DEEP_NAVY, MIDNIGHT_TEAL, OCEAN_TEAL, SEA_GREEN, ALERT_RED}
+
+def text_color_for(bg):
+    """Return correct text color per SKILL.md contrast rule."""
+    if bg in DARK_BG_COLORS:
+        return WHITE
+    return DEEP_NAVY
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -55,16 +65,16 @@ ax1.text(6, 7.5, "Data Flow: Local vs Cloud Processing",
          fontsize=18, fontweight="bold", color=DEEP_NAVY)
 ax1.text(6, 7.0, "Understanding where your data goes when using AI tools",
          ha="center", va="center",
-         fontsize=11, color=OCEAN_TEAL, fontstyle="italic")
+         fontsize=14, color=OCEAN_TEAL, fontstyle="italic")
 
 # Left column: Local Processing
 local_header = FancyBboxPatch((0.5, 5.2), 4.8, 0.8,
                                boxstyle="round,pad=0.1",
-                               facecolor=BRIGHT_TEAL, edgecolor=DEEP_NAVY,
+                               facecolor=BRIGHT_TEAL, edgecolor="none",
                                linewidth=2, zorder=2)
 ax1.add_patch(local_header)
 ax1.text(2.9, 5.6, "Local Processing", ha="center", va="center",
-         fontsize=14, fontweight="bold", color=WHITE, zorder=3)
+         fontsize=14, fontweight="bold", color=DEEP_NAVY, zorder=3)
 
 local_items = [
     "Python scripts",
@@ -74,23 +84,23 @@ local_items = [
 ]
 local_box = FancyBboxPatch((0.5, 2.4), 4.8, 2.6,
                             boxstyle="round,pad=0.1",
-                            facecolor="#E6F4F1", edgecolor=BRIGHT_TEAL,
+                            facecolor="#E6F4F1", edgecolor="none",
                             linewidth=1.5, zorder=1)
 ax1.add_patch(local_box)
 for i, item in enumerate(local_items):
     ax1.text(2.9, 4.5 - i * 0.55, f"  {item}", ha="center", va="center",
-             fontsize=11, color=DEEP_NAVY, zorder=3)
+             fontsize=12, color=DEEP_NAVY, zorder=3)
 
 ax1.text(2.9, 1.8, "Data stays on your machine",
          ha="center", va="center",
-         fontsize=10, fontweight="bold", color=BRIGHT_TEAL,
+         fontsize=12, fontweight="bold", color=BRIGHT_TEAL,
          bbox=dict(boxstyle="round,pad=0.3", facecolor="#E6F4F1",
-                   edgecolor=BRIGHT_TEAL, linewidth=1.5))
+                   edgecolor="none", linewidth=1.5))
 
 # Right column: Cloud Processing
 cloud_header = FancyBboxPatch((6.7, 5.2), 4.8, 0.8,
                                boxstyle="round,pad=0.1",
-                               facecolor=GOLDEN_YELLOW, edgecolor=DEEP_NAVY,
+                               facecolor=GOLDEN_YELLOW, edgecolor="none",
                                linewidth=2, zorder=2)
 ax1.add_patch(cloud_header)
 ax1.text(9.1, 5.6, "Cloud Processing", ha="center", va="center",
@@ -106,11 +116,11 @@ flow_y = [4.6, 3.5, 2.4]
 for (label, bg, fg), y in zip(flow_data, flow_y):
     box = FancyBboxPatch((7.1, y - 0.3), 4.0, 0.6,
                           boxstyle="round,pad=0.1",
-                          facecolor=bg, edgecolor=DEEP_NAVY,
+                          facecolor=bg, edgecolor="none",
                           linewidth=1.5, zorder=2)
     ax1.add_patch(box)
     ax1.text(9.1, y, label, ha="center", va="center",
-             fontsize=11, fontweight="bold", color=fg, zorder=3)
+             fontsize=12, fontweight="bold", color=fg, zorder=3)
 
 # Arrows between flow boxes
 for i in range(2):
@@ -121,15 +131,15 @@ for i in range(2):
 
 # Arrow labels
 ax1.text(9.8, (flow_y[0] + flow_y[1]) / 2, "prompt / context",
-         ha="left", va="center", fontsize=9, color=DEEP_NAVY, fontstyle="italic")
+         ha="left", va="center", fontsize=12, color=DEEP_NAVY, fontstyle="italic")
 ax1.text(9.8, (flow_y[1] + flow_y[2]) / 2, "model response",
-         ha="left", va="center", fontsize=9, color=DEEP_NAVY, fontstyle="italic")
+         ha="left", va="center", fontsize=12, color=DEEP_NAVY, fontstyle="italic")
 
 ax1.text(9.1, 1.8, "Data leaves your environment",
          ha="center", va="center",
-         fontsize=10, fontweight="bold", color=ALERT_RED,
+         fontsize=12, fontweight="bold", color=ALERT_RED,
          bbox=dict(boxstyle="round,pad=0.3", facecolor="#FDE8E8",
-                   edgecolor=ALERT_RED, linewidth=1.5))
+                   edgecolor="none", linewidth=1.5))
 
 # Center divider
 ax1.plot([6.1, 6.1], [1.4, 6.2], color=GRAY_LINE,
@@ -139,9 +149,9 @@ ax1.plot([6.1, 6.1], [1.4, 6.2], color=GRAY_LINE,
 ax1.text(6, 0.7,
          "Know the difference. Mask sensitive data before it crosses the boundary.",
          ha="center", va="center",
-         fontsize=11, color=DEEP_NAVY, fontstyle="italic",
+         fontsize=12, color=DEEP_NAVY, fontstyle="italic",
          bbox=dict(boxstyle="round,pad=0.45",
-                   facecolor="#FFF9EC", edgecolor=GOLDEN_YELLOW, linewidth=2.0),
+                   facecolor="#FFF9EC", edgecolor="none", linewidth=2.0),
          zorder=5)
 
 out_path1 = os.path.join(OUT_DIR, "06_data_flow.png")
@@ -166,7 +176,7 @@ ax2.text(5, 7.5, "Finance Data Risk Pyramid for AI Usage",
          fontsize=18, fontweight="bold", color=DEEP_NAVY)
 ax2.text(5, 7.0, "What to share, what to mask, and what to keep internal",
          ha="center", va="center",
-         fontsize=11, color=OCEAN_TEAL, fontstyle="italic")
+         fontsize=14, color=OCEAN_TEAL, fontstyle="italic")
 
 # Three tiers (bottom to top: unsafe, mask, safe)
 tiers = [
@@ -191,7 +201,7 @@ tiers = [
         "subtitle": "Structure & Metadata Only",
         "items": "Column names, file structure,\nworkflow descriptions, code snippets",
         "color": BRIGHT_TEAL,
-        "text_color": WHITE,
+        "text_color": DEEP_NAVY,
         "y": 5.1, "height": 1.6, "x": 3.0, "width": 4.0,
     },
 ]
@@ -200,7 +210,7 @@ for tier in tiers:
     box = FancyBboxPatch(
         (tier["x"], tier["y"]), tier["width"], tier["height"],
         boxstyle="round,pad=0.15",
-        facecolor=tier["color"], edgecolor=DEEP_NAVY,
+        facecolor=tier["color"], edgecolor="none",
         linewidth=2, zorder=2
     )
     ax2.add_patch(box)
@@ -210,23 +220,23 @@ for tier in tiers:
 
     ax2.text(cx, cy + 0.35, tier["label"],
              ha="center", va="center",
-             fontsize=13, fontweight="bold", color=tier["text_color"], zorder=3)
+             fontsize=15, fontweight="bold", color=tier["text_color"], zorder=3)
     ax2.text(cx, cy - 0.05, tier["subtitle"],
              ha="center", va="center",
-             fontsize=10, color=tier["text_color"], fontstyle="italic",
+             fontsize=12, color=tier["text_color"], fontstyle="italic",
              alpha=0.9, zorder=3)
     ax2.text(cx, cy - 0.5, tier["items"],
              ha="center", va="center",
-             fontsize=9, color=tier["text_color"], alpha=0.85,
+             fontsize=12, color=tier["text_color"], alpha=0.85,
              linespacing=1.2, zorder=3)
 
 # Bottom note
 ax2.text(5, 0.6,
          "Start at the top. Only move down when the AI truly needs more detail.",
          ha="center", va="center",
-         fontsize=10.5, color=DEEP_NAVY, fontstyle="italic",
+         fontsize=12, color=DEEP_NAVY, fontstyle="italic",
          bbox=dict(boxstyle="round,pad=0.4",
-                   facecolor="#FFF9EC", edgecolor=GOLDEN_YELLOW, linewidth=1.5))
+                   facecolor="#FFF9EC", edgecolor="none", linewidth=1.5))
 
 out_path2 = os.path.join(OUT_DIR, "06_risk_pyramid.png")
 plt.savefig(out_path2, dpi=180, bbox_inches="tight")
@@ -250,14 +260,14 @@ ax3.text(6, 7.5, "Safe AI Workflow for Accounting Data",
          fontsize=18, fontweight="bold", color=DEEP_NAVY)
 ax3.text(6, 7.0, "From raw export to AI-assisted output — without exposing sensitive data",
          ha="center", va="center",
-         fontsize=11, color=OCEAN_TEAL, fontstyle="italic")
+         fontsize=14, color=OCEAN_TEAL, fontstyle="italic")
 
 # Vertical flow
 steps = [
     ("QuickBooks Export\n(raw financial data)",              ALERT_RED,      WHITE),
     ("Masking Script\n(Python — runs locally)",              GOLDEN_YELLOW,  DEEP_NAVY),
     ("Validation Hook\n(verify data is masked)",             OCEAN_TEAL,     WHITE),
-    ("AI Assistant\n(code generation / analysis)",           BRIGHT_TEAL,    WHITE),
+    ("AI Assistant\n(code generation / analysis)",           BRIGHT_TEAL,    DEEP_NAVY),
     ("Automation or Report Output\n(applied to real data)",  SEA_GREEN,      WHITE),
 ]
 
@@ -270,12 +280,12 @@ for i, ((label, bg, fg), y) in enumerate(zip(steps, y_positions)):
     box = FancyBboxPatch(
         (cx - box_width / 2, y - box_height / 2), box_width, box_height,
         boxstyle="round,pad=0.1",
-        facecolor=bg, edgecolor=DEEP_NAVY,
+        facecolor=bg, edgecolor="none",
         linewidth=2, zorder=2
     )
     ax3.add_patch(box)
     ax3.text(cx, y, label, ha="center", va="center",
-             fontsize=11, fontweight="bold", color=fg,
+             fontsize=13, fontweight="bold", color=fg,
              linespacing=1.2, zorder=3)
 
     # Arrow to next step
@@ -296,7 +306,7 @@ annotations = [
 for y, text, side, color in annotations:
     ax3.text(cx + box_width / 2 + 0.4, y, text,
              ha="left", va="center",
-             fontsize=9, color=color, fontstyle="italic", zorder=3)
+             fontsize=12, color=color, fontstyle="italic", zorder=3)
 
 out_path3 = os.path.join(OUT_DIR, "06_safe_workflow.png")
 plt.savefig(out_path3, dpi=180, bbox_inches="tight")

@@ -28,43 +28,53 @@ OCEAN_TEAL    = "#005F6F"
 SOFT_SAGE     = "#91BE8E"
 SEA_GREEN     = "#2BA19A"
 WHITE         = "#FFFFFF"
+LIGHT_GRAY    = "#F5F5F5"
 ALERT_RED     = "#E05252"
 ALERT_ORANGE  = "#E07D3B"
+
+# -- Text contrast helper (SKILL.md mandatory rule 3) -----------------------
+DARK_BG_COLORS = {DEEP_NAVY, MIDNIGHT_TEAL, OCEAN_TEAL, SEA_GREEN}
+
+def text_color_for(bg):
+    """Return correct text color per SKILL.md contrast rule."""
+    if bg in DARK_BG_COLORS:
+        return WHITE
+    return DEEP_NAVY
 
 
 # =============================================================================
 # Visual 01 -- Hero / Front Image
 # =============================================================================
 fig1, ax1 = plt.subplots(figsize=(12, 6))
-fig1.patch.set_facecolor(DEEP_NAVY)
-ax1.set_facecolor(DEEP_NAVY)
+fig1.patch.set_facecolor(WHITE)
+ax1.set_facecolor(WHITE)
 ax1.set_xlim(0, 12)
 ax1.set_ylim(0, 6)
 ax1.axis("off")
 
 ax1.text(6, 3.8, "Stop Using One AI Like It Is Excel",
          ha="center", va="center",
-         fontsize=22, fontweight="bold", color=WHITE,
+         fontsize=22, fontweight="bold", color=DEEP_NAVY,
          linespacing=1.4)
 
 ax1.text(6, 2.6, "How accountants should actually use Claude, ChatGPT, and Copilot together",
          ha="center", va="center",
-         fontsize=12, color=GOLDEN_YELLOW, style="italic")
+         fontsize=14, color=OCEAN_TEAL, style="italic")
 
-ax1.text(6, 1.5, "PythonMuse  |  Svetlana Toohey  |  March 2026",
+ax1.text(6, 1.5, "PythonMuse LLC  |  March 2026",
          ha="center", va="center",
-         fontsize=11, color=WHITE, alpha=0.70)
+         fontsize=12, color=OCEAN_TEAL, alpha=0.70)
 
-ax1.plot([2, 10], [2.05, 2.05], color=OCEAN_TEAL, linewidth=1.5, alpha=0.5)
+ax1.plot([2, 10], [2.05, 2.05], color=BRIGHT_TEAL, linewidth=1.5, alpha=0.5)
 
 tagline = FancyBboxPatch((3.5, 0.3), 5, 0.7,
                           boxstyle="round,pad=0.1",
-                          facecolor=OCEAN_TEAL, edgecolor=BRIGHT_TEAL,
-                          linewidth=1, alpha=0.8)
+                          facecolor=DEEP_NAVY, edgecolor="none",
+                          alpha=0.9)
 ax1.add_patch(tagline)
 ax1.text(6, 0.65, "AI is not a tool. It is a team.",
          ha="center", va="center",
-         fontsize=13, fontweight="bold", color=WHITE)
+         fontsize=14, fontweight="bold", color=WHITE)
 
 fig1.savefig(os.path.join(OUT_DIR, "14_visual_front.png"),
              dpi=180, bbox_inches="tight", facecolor=fig1.get_facecolor())
@@ -76,8 +86,8 @@ print("  Saved 14_visual_front.png")
 # Visual 02 -- Model Orchestration Workflow
 # =============================================================================
 fig2, ax2 = plt.subplots(figsize=(14, 9))
-fig2.patch.set_facecolor(DEEP_NAVY)
-ax2.set_facecolor(DEEP_NAVY)
+fig2.patch.set_facecolor(WHITE)
+ax2.set_facecolor(WHITE)
 ax2.set_xlim(0, 14)
 ax2.set_ylim(0, 10)
 ax2.axis("off")
@@ -85,11 +95,11 @@ ax2.axis("off")
 # Title
 ax2.text(7, 9.4, "Assign the Right AI to the Right Job",
          ha="center", va="center",
-         fontsize=22, fontweight="bold", color=WHITE)
+         fontsize=22, fontweight="bold", color=DEEP_NAVY)
 
 ax2.text(7, 8.8, "Model orchestration for accounting workflows",
          ha="center", va="center",
-         fontsize=12, color=GOLDEN_YELLOW, style="italic")
+         fontsize=14, color=OCEAN_TEAL, style="italic")
 
 # Four workflow steps
 steps = [
@@ -132,27 +142,24 @@ y_top   = 8.0
 
 for i, s in enumerate(steps):
     x = x_start + i * (card_w + gap)
-    is_light = s["color"] in (GOLDEN_YELLOW, WARM_GLOW, SOFT_SAGE, BRIGHT_TEAL, SEA_GREEN)
-    tc = DEEP_NAVY if is_light else WHITE
-    note_c = OCEAN_TEAL if is_light else WARM_GLOW
+    tc = text_color_for(s["color"])
 
     # Card background
     card = FancyBboxPatch((x, y_top - card_h), card_w, card_h,
                            boxstyle="round,pad=0.15",
-                           facecolor=s["color"], edgecolor=WHITE,
-                           linewidth=0.6, alpha=0.92)
+                           facecolor=s["color"], edgecolor="none",
+                           alpha=0.92)
     ax2.add_patch(card)
 
     # Step number badge
     badge = FancyBboxPatch((x + 0.2, y_top - 0.6), card_w - 0.4, 0.45,
                             boxstyle="round,pad=0.06",
-                            facecolor=DEEP_NAVY if not is_light else OCEAN_TEAL,
-                            edgecolor="none", alpha=0.3)
+                            facecolor=DEEP_NAVY, edgecolor="none", alpha=0.3)
     ax2.add_patch(badge)
     ax2.text(x + card_w / 2, y_top - 0.38,
              s["num"],
              ha="center", va="center",
-             fontsize=11, fontweight="bold", color=WHITE, alpha=0.85)
+             fontsize=12, fontweight="bold", color=tc, alpha=0.85)
 
     # Label (big)
     ax2.text(x + card_w / 2, y_top - 1.1,
@@ -164,13 +171,13 @@ for i, s in enumerate(steps):
     ax2.text(x + card_w / 2, y_top - 1.65,
              s["model"],
              ha="center", va="center",
-             fontsize=12, fontweight="bold", color=tc)
+             fontsize=13, fontweight="bold", color=tc)
 
     # Description
     ax2.text(x + card_w / 2, y_top - 2.7,
              s["desc"],
              ha="center", va="center",
-             fontsize=11, color=tc, linespacing=1.4)
+             fontsize=12, color=tc, linespacing=1.4)
 
     # Arrow between cards
     if i < len(steps) - 1:
@@ -178,36 +185,36 @@ for i, s in enumerate(steps):
         ax2.annotate("",
                      xy=(arrow_x + 0.12, y_top - card_h / 2),
                      xytext=(arrow_x - 0.12, y_top - card_h / 2),
-                     arrowprops=dict(arrowstyle="->", color=BRIGHT_TEAL,
+                     arrowprops=dict(arrowstyle="->", color=OCEAN_TEAL,
                                      lw=2.5))
 
 # Copilot row at bottom
 copilot_y = 2.4
 cop_box = FancyBboxPatch((x_start, copilot_y - 0.8), total_w, 1.5,
                           boxstyle="round,pad=0.15",
-                          facecolor=MIDNIGHT_TEAL, edgecolor=BRIGHT_TEAL,
-                          linewidth=1, alpha=0.85)
+                          facecolor=DEEP_NAVY, edgecolor="none",
+                          alpha=0.90)
 ax2.add_patch(cop_box)
 
 ax2.text(7, copilot_y + 0.25,
          "GitHub Copilot -- Works across all steps inside VS Code",
          ha="center", va="center",
-         fontsize=12, fontweight="bold", color=WHITE)
+         fontsize=13, fontweight="bold", color=WHITE)
 
 ax2.text(7, copilot_y - 0.25,
          "Reads your folder structure, file names, and Markdown instructions",
          ha="center", va="center",
-         fontsize=11, color=WHITE)
+         fontsize=12, color=WHITE)
 
 # Footer
 ax2.text(7, 0.6,
          "Your folder structure is your prompt.",
          ha="center", va="center",
-         fontsize=12, fontweight="bold", color=GOLDEN_YELLOW)
+         fontsize=13, fontweight="bold", color=OCEAN_TEAL)
 
-ax2.text(7, 0.2, "PythonMuse",
+ax2.text(7, 0.2, "PythonMuse LLC",
          ha="center", va="center",
-         fontsize=9, color=WHITE, alpha=0.70)
+         fontsize=10, color=DEEP_NAVY, alpha=0.50)
 
 fig2.savefig(os.path.join(OUT_DIR, "14_model_orchestration.png"),
              dpi=180, bbox_inches="tight", facecolor=fig2.get_facecolor())

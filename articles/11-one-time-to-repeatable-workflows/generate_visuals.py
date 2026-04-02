@@ -21,7 +21,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR    = os.path.join(SCRIPT_DIR, "visuals")
 os.makedirs(OUT_DIR, exist_ok=True)
 
-# -- PythonMuse brand colors -------------------------------------------------
+# -- PythonMuse brand colors (SKILL.md standard block) -----------------------
 DEEP_NAVY     = "#002639"
 MIDNIGHT_TEAL = "#003144"
 BRIGHT_TEAL   = "#3ABFB9"
@@ -31,33 +31,43 @@ OCEAN_TEAL    = "#005F6F"
 SOFT_SAGE     = "#91BE8E"
 SEA_GREEN     = "#2BA19A"
 WHITE         = "#FFFFFF"
+LIGHT_GRAY    = "#F5F5F5"
 ALERT_RED     = "#E05252"
+
+# -- Text contrast helper (SKILL.md mandatory rule 3) -----------------------
+DARK_BG_COLORS = {DEEP_NAVY, MIDNIGHT_TEAL, OCEAN_TEAL, SEA_GREEN}
+
+def text_color_for(bg):
+    """Return correct text color per SKILL.md contrast rule."""
+    if bg in DARK_BG_COLORS:
+        return WHITE
+    return DEEP_NAVY
 
 
 # -----------------------------------------------------------------------------
 # Visual 01 -- Hero / Front Image
 # -----------------------------------------------------------------------------
 fig1, ax1 = plt.subplots(figsize=(12, 6))
-fig1.patch.set_facecolor(DEEP_NAVY)
-ax1.set_facecolor(DEEP_NAVY)
+fig1.patch.set_facecolor(WHITE)
+ax1.set_facecolor(WHITE)
 ax1.set_xlim(0, 12)
 ax1.set_ylim(0, 6)
 ax1.axis("off")
 
 ax1.text(6, 3.8, "From One-Time Analysis to\nRepeatable Workflows",
          ha="center", va="center",
-         fontsize=26, fontweight="bold", color=BRIGHT_TEAL,
+         fontsize=26, fontweight="bold", color=DEEP_NAVY,
          linespacing=1.3)
 
 ax1.text(6, 2.4, "Designing AI Projects That Actually Scale",
          ha="center", va="center",
-         fontsize=14, color=GOLDEN_YELLOW, style="italic")
+         fontsize=14, color=OCEAN_TEAL, style="italic")
 
-ax1.text(6, 1.4, "PythonMuse  |  Svetlana Toohey  |  March 2026",
+ax1.text(6, 1.4, "PythonMuse LLC  |  March 2026",
          ha="center", va="center",
-         fontsize=11, color=WHITE, alpha=0.7)
+         fontsize=12, color=OCEAN_TEAL, alpha=0.7)
 
-ax1.plot([2, 10], [1.9, 1.9], color=OCEAN_TEAL, linewidth=1.5, alpha=0.5)
+ax1.plot([2, 10], [1.9, 1.9], color=BRIGHT_TEAL, linewidth=1.5, alpha=0.5)
 
 fig1.savefig(os.path.join(OUT_DIR, "11_visual_front.png"),
              dpi=180, bbox_inches="tight", facecolor=fig1.get_facecolor())
@@ -69,19 +79,19 @@ print("  Saved 11_visual_front.png")
 # Visual 02 -- Nine-Step Workflow Pattern
 # -----------------------------------------------------------------------------
 fig2, ax2 = plt.subplots(figsize=(14, 10))
-fig2.patch.set_facecolor(DEEP_NAVY)
-ax2.set_facecolor(DEEP_NAVY)
+fig2.patch.set_facecolor(WHITE)
+ax2.set_facecolor(WHITE)
 ax2.set_xlim(0, 14)
 ax2.set_ylim(0, 12)
 ax2.axis("off")
 
 ax2.text(7, 11.4, "The PythonMuse Safe AI Workflow Pattern",
          ha="center", va="center",
-         fontsize=18, fontweight="bold", color=BRIGHT_TEAL)
+         fontsize=20, fontweight="bold", color=DEEP_NAVY)
 
 ax2.text(7, 10.8, "Nine steps from goal to reusable SKILL",
          ha="center", va="center",
-         fontsize=11, color=WARM_GLOW, style="italic")
+         fontsize=14, color=OCEAN_TEAL, style="italic")
 
 steps = [
     ("1", "Start with Structure", "Define the goal\nbefore sharing data", OCEAN_TEAL),
@@ -102,26 +112,26 @@ for i, (num, title, desc, color) in enumerate(steps):
     x = 4 if col == 0 else 10
     y = 9.5 - row * 1.9
 
+    tc = text_color_for(color)
+
     # Box
     box = FancyBboxPatch((x - 2.5, y - 0.7), 5, 1.4,
                          boxstyle="round,pad=0.15",
-                         facecolor=color, edgecolor=WHITE,
-                         linewidth=0.6, alpha=0.9)
+                         facecolor=color, edgecolor="none",
+                         alpha=0.9)
     ax2.add_patch(box)
-
-    text_color = DEEP_NAVY if color in (GOLDEN_YELLOW, SOFT_SAGE) else WHITE
 
     # Step number circle
     ax2.text(x - 1.8, y, num, ha="center", va="center",
-             fontsize=14, fontweight="bold", color=text_color,
+             fontsize=14, fontweight="bold", color=DEEP_NAVY,
              bbox=dict(boxstyle="circle,pad=0.3", facecolor=WHITE,
-                       edgecolor=color, linewidth=1.5, alpha=0.9))
+                       edgecolor="none", alpha=0.9))
 
     # Title and description
     ax2.text(x + 0.3, y + 0.2, title, ha="center", va="center",
-             fontsize=11, fontweight="bold", color=text_color)
-    ax2.text(x + 0.3, y - 0.25, desc, ha="center", va="center",
-             fontsize=8, color=text_color, alpha=0.85,
+             fontsize=13, fontweight="bold", color=tc)
+    ax2.text(x + 0.3, y - 0.3, desc, ha="center", va="center",
+             fontsize=12, color=tc, alpha=0.85,
              linespacing=1.2)
 
     # Arrow to next step
@@ -134,20 +144,20 @@ for i, (num, title, desc, color) in enumerate(steps):
         if col == 0 and next_col == 1:
             # Same row, left to right
             ax2.annotate("", xy=(x_next - 2.5, y), xytext=(x + 2.5, y),
-                         arrowprops=dict(arrowstyle="->", color=WHITE,
+                         arrowprops=dict(arrowstyle="->", color=OCEAN_TEAL,
                                          lw=1.2))
         elif col == 1 and next_col == 0:
             # Right to left, down
             ax2.annotate("", xy=(x_next + 2.5, y_next + 0.7),
                          xytext=(x - 2.5, y - 0.7),
-                         arrowprops=dict(arrowstyle="->", color=WHITE,
+                         arrowprops=dict(arrowstyle="->", color=OCEAN_TEAL,
                                          lw=1.2,
                                          connectionstyle="arc3,rad=-0.3"))
 
 # Legend at bottom
 ax2.text(7, 0.6, "Design  \u2192  Protect  \u2192  Execute  \u2192  Reuse",
          ha="center", va="center",
-         fontsize=12, fontweight="bold", color=BRIGHT_TEAL)
+         fontsize=13, fontweight="bold", color=OCEAN_TEAL)
 
 fig2.savefig(os.path.join(OUT_DIR, "11_workflow_steps.png"),
              dpi=180, bbox_inches="tight", facecolor=fig2.get_facecolor())

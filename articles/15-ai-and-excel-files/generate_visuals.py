@@ -28,43 +28,53 @@ OCEAN_TEAL    = "#005F6F"
 SOFT_SAGE     = "#91BE8E"
 SEA_GREEN     = "#2BA19A"
 WHITE         = "#FFFFFF"
+LIGHT_GRAY    = "#F5F5F5"
 ALERT_RED     = "#E05252"
 ALERT_ORANGE  = "#E07D3B"
+
+# -- Text contrast helper (SKILL.md mandatory rule 3) -----------------------
+DARK_BG_COLORS = {DEEP_NAVY, MIDNIGHT_TEAL, OCEAN_TEAL, SEA_GREEN}
+
+def text_color_for(bg):
+    """Return correct text color per SKILL.md contrast rule."""
+    if bg in DARK_BG_COLORS:
+        return WHITE
+    return DEEP_NAVY
 
 
 # =============================================================================
 # Visual 01 -- Hero / Front Image
 # =============================================================================
 fig1, ax1 = plt.subplots(figsize=(12, 6))
-fig1.patch.set_facecolor(DEEP_NAVY)
-ax1.set_facecolor(DEEP_NAVY)
+fig1.patch.set_facecolor(WHITE)
+ax1.set_facecolor(WHITE)
 ax1.set_xlim(0, 12)
 ax1.set_ylim(0, 6)
 ax1.axis("off")
 
 ax1.text(6, 4.0, '"AI Can\'t Work With Our\nExcel Files"... or Can It?',
          ha="center", va="center",
-         fontsize=22, fontweight="bold", color=WHITE,
+         fontsize=22, fontweight="bold", color=DEEP_NAVY,
          linespacing=1.4)
 
 ax1.text(6, 2.6, "Why the problem is not Excel -- it is the missing instruction layer",
          ha="center", va="center",
-         fontsize=12, color=GOLDEN_YELLOW, style="italic")
+         fontsize=14, color=OCEAN_TEAL, style="italic")
 
-ax1.text(6, 1.5, "PythonMuse  |  Svetlana Toohey  |  March 2026",
+ax1.text(6, 1.5, "PythonMuse LLC  |  March 2026",
          ha="center", va="center",
-         fontsize=11, color=WHITE, alpha=0.70)
+         fontsize=12, color=OCEAN_TEAL, alpha=0.70)
 
-ax1.plot([2, 10], [2.05, 2.05], color=OCEAN_TEAL, linewidth=1.5, alpha=0.5)
+ax1.plot([2, 10], [2.05, 2.05], color=BRIGHT_TEAL, linewidth=1.5, alpha=0.5)
 
 tagline = FancyBboxPatch((2.5, 0.3), 7, 0.7,
                           boxstyle="round,pad=0.1",
-                          facecolor=OCEAN_TEAL, edgecolor=BRIGHT_TEAL,
-                          linewidth=1, alpha=0.8)
+                          facecolor=DEEP_NAVY, edgecolor="none",
+                          alpha=0.9)
 ax1.add_patch(tagline)
 ax1.text(6, 0.65, "Excel is not the problem. Lack of structure is.",
          ha="center", va="center",
-         fontsize=13, fontweight="bold", color=WHITE)
+         fontsize=14, fontweight="bold", color=WHITE)
 
 fig1.savefig(os.path.join(OUT_DIR, "15_visual_front.png"),
              dpi=180, bbox_inches="tight", facecolor=fig1.get_facecolor())
@@ -76,8 +86,8 @@ print("  Saved 15_visual_front.png")
 # Visual 02 -- Three-Tier Data Approach
 # =============================================================================
 fig2, ax2 = plt.subplots(figsize=(14, 10))
-fig2.patch.set_facecolor(DEEP_NAVY)
-ax2.set_facecolor(DEEP_NAVY)
+fig2.patch.set_facecolor(WHITE)
+ax2.set_facecolor(WHITE)
 ax2.set_xlim(0, 14)
 ax2.set_ylim(0, 11)
 ax2.axis("off")
@@ -85,11 +95,11 @@ ax2.axis("off")
 # Title
 ax2.text(7, 10.4, "Three-Tier Data Approach for AI",
          ha="center", va="center",
-         fontsize=22, fontweight="bold", color=WHITE)
+         fontsize=22, fontweight="bold", color=DEEP_NAVY)
 
 ax2.text(7, 9.8, "Not all data sources are equal -- choose the right tier for your workflow",
          ha="center", va="center",
-         fontsize=12, color=GOLDEN_YELLOW, style="italic")
+         fontsize=14, color=OCEAN_TEAL, style="italic")
 
 # -- Three tier cards (stacked top-to-bottom, best at top) -------------------
 tiers = [
@@ -123,15 +133,14 @@ y_top = 9.0
 
 for i, t in enumerate(tiers):
     y = y_top - i * (card_h + 0.3)
-    is_light = t["color"] in (GOLDEN_YELLOW, WARM_GLOW, SOFT_SAGE, BRIGHT_TEAL, SEA_GREEN)
-    tc = DEEP_NAVY if is_light else WHITE
-    note_c = OCEAN_TEAL if is_light else WARM_GLOW
+    tc = text_color_for(t["color"])
+    note_c = OCEAN_TEAL if tc == DEEP_NAVY else WARM_GLOW
 
     # Card background
     card = FancyBboxPatch((x_start, y - card_h), card_w, card_h,
                            boxstyle="round,pad=0.15",
-                           facecolor=t["color"], edgecolor=WHITE,
-                           linewidth=0.6, alpha=0.92)
+                           facecolor=t["color"], edgecolor="none",
+                           alpha=0.92)
     ax2.add_patch(card)
 
     # Badge
@@ -149,18 +158,18 @@ for i, t in enumerate(tiers):
     ax2.text(x_start + 2.0, y - 0.35,
              t["level"],
              ha="left", va="center",
-             fontsize=11, fontweight="bold", color=tc)
+             fontsize=13, fontweight="bold", color=tc)
 
     ax2.text(x_start + card_w - 0.4, y - 0.35,
              t["label"],
              ha="right", va="center",
-             fontsize=13, fontweight="bold", color=tc)
+             fontsize=14, fontweight="bold", color=tc)
 
     # Bullet points
     ax2.text(x_start + 2.0, y - 1.2,
              t["points"],
              ha="left", va="center",
-             fontsize=11, color=tc, linespacing=1.3)
+             fontsize=12, color=tc, linespacing=1.3)
 
     # Arrow between tiers
     if i < len(tiers) - 1:
@@ -168,31 +177,31 @@ for i, t in enumerate(tiers):
         ax2.annotate("",
                      xy=(7, arrow_y - 0.05),
                      xytext=(7, arrow_y + 0.05),
-                     arrowprops=dict(arrowstyle="->", color=BRIGHT_TEAL,
+                     arrowprops=dict(arrowstyle="->", color=OCEAN_TEAL,
                                      lw=2.0))
 
 # -- Skill callout box at bottom ---------------------------------------------
 skill_y = 1.6
 skill_box = FancyBboxPatch((x_start, skill_y - 0.8), card_w, 1.5,
                              boxstyle="round,pad=0.15",
-                             facecolor=MIDNIGHT_TEAL, edgecolor=GOLDEN_YELLOW,
-                             linewidth=1.2, alpha=0.85)
+                             facecolor=DEEP_NAVY, edgecolor="none",
+                             alpha=0.90)
 ax2.add_patch(skill_box)
 
 ax2.text(7, skill_y + 0.25,
          "The Skill is the bridge -- a training manual for your Excel file",
          ha="center", va="center",
-         fontsize=12, fontweight="bold", color=WHITE)
+         fontsize=13, fontweight="bold", color=WHITE)
 
 ax2.text(7, skill_y - 0.25,
          "Create it once. Reuse it every month. No retraining required.",
          ha="center", va="center",
-         fontsize=11, color=WHITE)
+         fontsize=12, color=WHITE)
 
 # Footer
-ax2.text(7, 0.2, "PythonMuse",
+ax2.text(7, 0.2, "PythonMuse LLC",
          ha="center", va="center",
-         fontsize=9, color=WHITE, alpha=0.70)
+         fontsize=10, color=DEEP_NAVY, alpha=0.50)
 
 fig2.savefig(os.path.join(OUT_DIR, "15_data_tiers.png"),
              dpi=180, bbox_inches="tight", facecolor=fig2.get_facecolor())
