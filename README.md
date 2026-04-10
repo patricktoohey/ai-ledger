@@ -27,6 +27,7 @@ Each article includes the full write-up, sample data, and the code to reproduce 
 | 13 | [AI in Accounting Isn't Just About Efficiency -- It's About Control](articles/13-zero-trust-ai-accounting/) | Zero Trust for AI, OWASP LLM risks, data controls, trust but verify, four-level framework, checklist |
 | 14 | [Stop Using One AI Like It Is Excel](articles/14-ai-team-for-accountants/) | Claude vs ChatGPT vs Copilot, model orchestration, skills, GitHub as distribution layer, folder structure as prompt |
 | 15 | ["AI Can't Work With Our Excel Files"... or Can It?](articles/15-ai-and-excel-files/) | Excel instruction layer, SKILL for spreadsheets, three-tier data approach, train once reuse forever |
+| 16 | [The PDF Token Trap](articles/16-pdf-token-trap/) | PDF-to-Markdown workflow, token efficiency, data masking, reusable Skills, convert once reuse forever |
 
 ---
 
