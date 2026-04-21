@@ -1,4 +1,4 @@
-# Stop Using One AI Like It Is Excel
+# Stop Using AI Like It Is Excel
 
 *How accountants should actually use Claude, ChatGPT, and Copilot together*
 
