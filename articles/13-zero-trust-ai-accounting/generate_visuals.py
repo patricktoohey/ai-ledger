@@ -17,12 +17,15 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
+import numpy as np
 import os
 
 # -- Output directory --------------------------------------------------------
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR    = os.path.join(SCRIPT_DIR, "visuals")
 os.makedirs(OUT_DIR, exist_ok=True)
+
+# -- Logo mark ---------------------------------------------------------------
 
 # -- PythonMuse brand colors (SKILL.md standard block) -----------------------
 DEEP_NAVY     = "#002639"
@@ -47,7 +50,6 @@ def text_color_for(bg):
         return WHITE
     return DEEP_NAVY
 
-
 # -----------------------------------------------------------------------------
 # Visual 01 -- Hero / Front Image
 # -----------------------------------------------------------------------------
@@ -67,7 +69,7 @@ ax1.text(6, 2.4, "Why Zero Trust principles are already built into how good acco
          ha="center", va="center",
          fontsize=14, color=OCEAN_TEAL, style="italic")
 
-ax1.text(6, 1.4, "PythonMuse LLC  |  March 2026",
+ax1.text(6, 1.4, "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger",
          ha="center", va="center",
          fontsize=12, color=OCEAN_TEAL, alpha=0.7)
 
@@ -86,7 +88,6 @@ fig1.savefig(os.path.join(OUT_DIR, "13_visual_front.png"),
              dpi=180, bbox_inches="tight", facecolor=fig1.get_facecolor())
 plt.close(fig1)
 print("  Saved 13_visual_front.png")
-
 
 # -----------------------------------------------------------------------------
 # Visual 02 -- The Four-Level Trust Ladder
@@ -213,7 +214,7 @@ ax2.text(6.5, 0.55,
          ha="center", va="center",
          fontsize=12, color=OCEAN_TEAL, style="italic")
 
-ax2.text(6.5, 0.18, "PythonMuse LLC",
+ax2.text(6.5, 0.18, "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger",
          ha="center", va="center",
          fontsize=10, color=DEEP_NAVY, alpha=0.45)
 
@@ -221,7 +222,6 @@ fig2.savefig(os.path.join(OUT_DIR, "13_trust_ladder.png"),
              dpi=180, bbox_inches="tight", facecolor=fig2.get_facecolor())
 plt.close(fig2)
 print("  Saved 13_trust_ladder.png")
-
 
 # -----------------------------------------------------------------------------
 # Visual 03 -- Checklist Overview
@@ -296,6 +296,5 @@ fig3.savefig(os.path.join(OUT_DIR, "13_checklist_overview.png"),
              dpi=180, bbox_inches="tight", facecolor=fig3.get_facecolor())
 plt.close(fig3)
 print("  Saved 13_checklist_overview.png")
-
 
 print("\nAll Article 13 visuals generated.")

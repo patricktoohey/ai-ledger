@@ -17,12 +17,15 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
+import numpy as np
 import os
 
 # -- Output directory --------------------------------------------------------
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR    = os.path.join(SCRIPT_DIR, "visuals")
 os.makedirs(OUT_DIR, exist_ok=True)
+
+# -- Logo mark ---------------------------------------------------------------
 
 # -- PythonMuse brand colors (SKILL.md standard block) -----------------------
 DEEP_NAVY     = "#002639"
@@ -46,7 +49,6 @@ def text_color_for(bg):
         return WHITE
     return DEEP_NAVY
 
-
 # ---------------------------------------------------------------------------
 # Visual 01 -- Hero / Front Image
 # ---------------------------------------------------------------------------
@@ -69,7 +71,7 @@ ax1.text(6, 2.6, "And How to Fix It with\nSimple Project Files",
 
 ax1.plot([3, 9], [1.7, 1.7], color=BRIGHT_TEAL, linewidth=2)
 
-ax1.text(6, 1.0, "PythonMuse LLC",
+ax1.text(6, 1.0, "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger",
          ha="center", va="center",
          fontsize=12, color=OCEAN_TEAL, alpha=0.7)
 
@@ -77,7 +79,6 @@ plt.savefig(os.path.join(OUT_DIR, "08_visual_front.png"),
             dpi=180, bbox_inches="tight", facecolor=fig1.get_facecolor())
 plt.close()
 print("  Saved 08_visual_front.png")
-
 
 # ---------------------------------------------------------------------------
 # Visual 02 -- The Context Window Problem
@@ -186,7 +187,6 @@ plt.savefig(os.path.join(OUT_DIR, "08_context_problem.png"),
             dpi=180, bbox_inches="tight")
 plt.close()
 print("  Saved 08_context_problem.png")
-
 
 # ---------------------------------------------------------------------------
 # Visual 03 -- The Three-File External Memory System

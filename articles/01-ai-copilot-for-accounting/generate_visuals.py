@@ -29,6 +29,7 @@ LIGHT_GRAY    = "#F5F5F5"
 ALERT_RED     = "#E05252"
 GRAY_LINE     = "#CCCCCC"
 
+FOOTER_TEXT = "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger"
 
 def style_ax(ax, title, ylabel=None):
     ax.set_facecolor(LIGHT_GRAY)
@@ -41,7 +42,6 @@ def style_ax(ax, title, ylabel=None):
     ax.spines["bottom"].set_color(GRAY_LINE)
     ax.tick_params(colors=DEEP_NAVY, labelsize=12)
     ax.yaxis.set_major_formatter(mticker.FuncFormatter(lambda x, _: f"{x:,.0f}"))
-
 
 # ════════════════════════════════════════════════════════════════
 # CHART 1  ─  Gross Margin % by Order
@@ -72,11 +72,11 @@ ax.set_xlabel("Order ID", fontsize=12, color=DEEP_NAVY)
 for i, (o, m) in enumerate(zip(orders, margins)):
     if m < 20:
         ax.text(i, m + 1.0, f"{m:.1f}%", ha="center", fontsize=12, color=ALERT_RED, fontweight="bold")
-plt.tight_layout()
+plt.tight_layout(rect=[0, 0.04, 1, 1])
+fig.text(0.5, 0.01, FOOTER_TEXT, ha="center", fontsize=8, color=DEEP_NAVY, alpha=0.50)
 plt.savefig(os.path.join(OUT_DIR, "01_margin_by_order.png"), dpi=180)
 plt.close()
 print("[OK] 01_margin_by_order.png")
-
 
 # ════════════════════════════════════════════════════════════════
 # CHART 2  ─  Year-over-Year Revenue vs Gross Profit
@@ -111,11 +111,11 @@ ax.set_xticks(x)
 ax.set_xticklabels(years, fontsize=12)
 ax.legend(fontsize=12, loc="upper left", framealpha=0.9)
 style_ax(ax, "Revenue Up 27%, Gross Profit Flat", "Dollars ($)")
-plt.tight_layout()
+plt.tight_layout(rect=[0, 0.04, 1, 1])
+fig.text(0.5, 0.01, FOOTER_TEXT, ha="center", fontsize=8, color=DEEP_NAVY, alpha=0.50)
 plt.savefig(os.path.join(OUT_DIR, "02_yoy_comparison.png"), dpi=180)
 plt.close()
 print("[OK] 02_yoy_comparison.png")
-
 
 # ════════════════════════════════════════════════════════════════
 # CHART 3  ─  Salesperson Gross Profit + Margin Rate
@@ -147,11 +147,11 @@ for i, (g, m) in enumerate(zip(sp_gp, sp_mgn)):
     ax1.text(i, g + 400, f"${g:,}", ha="center", fontsize=12, color=DEEP_NAVY, fontweight="bold")
     ax2.text(i, m + 2.2, f"{m}%", ha="center", fontsize=12, color=DEEP_NAVY)
 
-plt.tight_layout()
+plt.tight_layout(rect=[0, 0.04, 1, 1])
+fig.text(0.5, 0.01, FOOTER_TEXT, ha="center", fontsize=8, color=DEEP_NAVY, alpha=0.50)
 plt.savefig(os.path.join(OUT_DIR, "03_salesperson_gp.png"), dpi=180)
 plt.close()
 print("[OK] 03_salesperson_gp.png")
-
 
 # ════════════════════════════════════════════════════════════════
 # CHART 4  ─  Revenue Concentration Donut
@@ -175,11 +175,11 @@ ax.text(0, 0, "Revenue\nConcentration", ha="center", va="center",
         fontsize=12, fontweight="bold", color=DEEP_NAVY)
 ax.set_title("Revenue Concentration Risk", fontsize=18, fontweight="bold",
              color=DEEP_NAVY, pad=18)
-plt.tight_layout()
+plt.tight_layout(rect=[0, 0.04, 1, 1])
+fig.text(0.5, 0.01, FOOTER_TEXT, ha="center", fontsize=8, color=DEEP_NAVY, alpha=0.50)
 plt.savefig(os.path.join(OUT_DIR, "04_revenue_concentration.png"), dpi=180)
 plt.close()
 print("[OK] 04_revenue_concentration.png")
-
 
 # ════════════════════════════════════════════════════════════════
 # CHART 5  ─  Vendor Material Cost Inflation
@@ -206,7 +206,8 @@ ax.legend(fontsize=12, loc="upper right", framealpha=0.9)
 ax.set_xticks(x)
 ax.set_xticklabels(vendors, fontsize=12)
 style_ax(ax, "Vendor Material Cost Inflation (Avg per Order)", "Avg Material Cost ($)")
-plt.tight_layout()
+plt.tight_layout(rect=[0, 0.04, 1, 1])
+fig.text(0.5, 0.01, FOOTER_TEXT, ha="center", fontsize=8, color=DEEP_NAVY, alpha=0.50)
 plt.savefig(os.path.join(OUT_DIR, "05_vendor_costs.png"), dpi=180)
 plt.close()
 print("[OK] 05_vendor_costs.png")

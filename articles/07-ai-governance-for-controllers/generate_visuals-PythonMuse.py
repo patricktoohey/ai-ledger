@@ -17,6 +17,8 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+from PIL import Image as PILImage
 import numpy as np
 import os
 
@@ -24,6 +26,10 @@ import os
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR    = os.path.join(SCRIPT_DIR, "visuals")
 os.makedirs(OUT_DIR, exist_ok=True)
+
+# ── Logo mark ─────────────────────────────────────────────────────────────────
+LOGO_DIR         = os.path.abspath(os.path.join(SCRIPT_DIR, "..", "..", "..", "..", "Presentations", "docs"))
+LOGO_SKETCH_TEAL = os.path.join(LOGO_DIR, "01-Sketch-teal.png")
 
 # ── PythonMuse brand colors ──────────────────────────────────────────────────
 DEEP_NAVY     = "#002639"
@@ -49,8 +55,25 @@ def text_color_for(bg):
         return WHITE
     return DEEP_NAVY
 
+
+def add_logo(ax, logo_path=None, size=80):
+    path = logo_path or LOGO_SKETCH_TEAL
+    try:
+        img = PILImage.open(path)
+        img.thumbnail((size, size), PILImage.LANCZOS)
+        imagebox = OffsetImage(np.array(img), zoom=1.0)
+        imagebox.image.axes = ax
+        ab = AnnotationBbox(imagebox, (0.97, 0.03),
+                            xycoords="axes fraction", frameon=False,
+                            box_alignment=(1.0, 0.0))
+        ax.add_artist(ab)
+    except Exception:
+        pass
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 01 – Hero / Front Image
+# ─────────────────────────────────────────────────────────────────────────────
 # ─────────────────────────────────────────────────────────────────────────────
 fig1, ax1 = plt.subplots(figsize=(12, 6))
 fig1.patch.set_facecolor(WHITE)
@@ -75,14 +98,16 @@ ax1.text(6, 2.6, "Turning Policy Into Real Controls\nUsing Claude and VS Code",
 ax1.plot([3, 9], [1.7, 1.7], color=BRIGHT_TEAL, linewidth=2)
 
 # Byline
-ax1.text(6, 1.0, "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger",
+ax1.text(6, 1.0, "PythonMuse LLC",
          ha="center", va="center",
          fontsize=12, color=OCEAN_TEAL, alpha=0.7)
 
+add_logo(ax1)
 out_path1 = os.path.join(OUT_DIR, "07_visual_front.png")
 plt.savefig(out_path1, dpi=180, bbox_inches="tight")
 plt.close()
 print(f"[OK] 07_visual_front.png  ->  {OUT_DIR}")
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 02 – From AI Policy to Operational Controls
@@ -149,10 +174,12 @@ ax2.text(5, 1.4,
                    facecolor="#FFF9EC", edgecolor="none", linewidth=2.0),
          zorder=5)
 
+add_logo(ax2)
 out_path2 = os.path.join(OUT_DIR, "07_governance_flow.png")
 plt.savefig(out_path2, dpi=180, bbox_inches="tight")
 plt.close()
 print(f"[OK] 07_governance_flow.png  ->  {OUT_DIR}")
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 03 – Controller Governance Repository (layer stack)
@@ -221,6 +248,7 @@ ax3.text(6, 1.0,
                    facecolor="#FFF9EC", edgecolor="none", linewidth=2.0),
          zorder=5)
 
+add_logo(ax3)
 out_path3 = os.path.join(OUT_DIR, "07_repo_architecture.png")
 plt.savefig(out_path3, dpi=180, bbox_inches="tight")
 plt.close()

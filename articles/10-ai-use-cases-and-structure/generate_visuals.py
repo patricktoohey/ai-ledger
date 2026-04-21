@@ -12,12 +12,15 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
+import numpy as np
 import os
 
 # -- Output directory --------------------------------------------------------
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR    = os.path.join(SCRIPT_DIR, "visuals")
 os.makedirs(OUT_DIR, exist_ok=True)
+
+# -- Logo mark ---------------------------------------------------------------
 
 # -- PythonMuse brand colors (SKILL.md standard block) -----------------------
 DEEP_NAVY     = "#002639"
@@ -41,7 +44,6 @@ def text_color_for(bg):
         return WHITE
     return DEEP_NAVY
 
-
 # ---------------------------------------------------------------------------
 # Visual 01 -- Hero / Front Image
 # ---------------------------------------------------------------------------
@@ -61,7 +63,7 @@ ax1.text(6, 2.8, "Real Use Cases -- and How to Structure Them Correctly",
          ha="center", va="center",
          fontsize=14, color=OCEAN_TEAL, style="italic")
 
-ax1.text(6, 1.4, "PythonMuse LLC  |  March 2026",
+ax1.text(6, 1.4, "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger",
          ha="center", va="center",
          fontsize=12, color=OCEAN_TEAL, alpha=0.7)
 
@@ -71,7 +73,6 @@ fig1.savefig(os.path.join(OUT_DIR, "10_visual_front.png"),
              dpi=180, bbox_inches="tight", facecolor=fig1.get_facecolor())
 plt.close(fig1)
 print("  Saved 10_visual_front.png")
-
 
 # ---------------------------------------------------------------------------
 # Visual 02 -- Decision Framework
@@ -145,7 +146,6 @@ fig2.savefig(os.path.join(OUT_DIR, "10_decision_framework.png"),
 plt.close(fig2)
 print("  Saved 10_decision_framework.png")
 
-
 # ---------------------------------------------------------------------------
 # Visual 03 -- Three-Part Series Overview
 # ---------------------------------------------------------------------------
@@ -204,6 +204,5 @@ fig3.savefig(os.path.join(OUT_DIR, "10_series_overview.png"),
              dpi=180, bbox_inches="tight", facecolor=fig3.get_facecolor())
 plt.close(fig3)
 print("  Saved 10_series_overview.png")
-
 
 print("\nAll Article 10 visuals generated.")

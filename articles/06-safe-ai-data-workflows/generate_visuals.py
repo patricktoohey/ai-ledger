@@ -17,6 +17,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
+import numpy as np
 import os
 
 # ── Output directory ──────────────────────────────────────────────────────────
@@ -39,6 +40,8 @@ GRAY_BG       = "#F4F6F7"
 GRAY_LINE     = "#CCCCCC"
 LIGHT_GRAY    = "#F5F5F5"
 
+FOOTER_TEXT = "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger"
+
 # -- Text contrast helper (SKILL.md mandatory rule 3) -----------------------
 DARK_BG_COLORS = {DEEP_NAVY, MIDNIGHT_TEAL, OCEAN_TEAL, SEA_GREEN, ALERT_RED}
 
@@ -48,9 +51,9 @@ def text_color_for(bg):
         return WHITE
     return DEEP_NAVY
 
-
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 01 – Data Flow: Local vs Cloud Processing
+# ─────────────────────────────────────────────────────────────────────────────
 # ─────────────────────────────────────────────────────────────────────────────
 fig1, ax1 = plt.subplots(figsize=(12, 8))
 fig1.patch.set_facecolor(WHITE)
@@ -154,11 +157,11 @@ ax1.text(6, 0.7,
                    facecolor="#FFF9EC", edgecolor="none", linewidth=2.0),
          zorder=5)
 
+fig1.text(0.5, 0.01, FOOTER_TEXT, ha="center", fontsize=8, color=DEEP_NAVY, alpha=0.50)
 out_path1 = os.path.join(OUT_DIR, "06_data_flow.png")
 plt.savefig(out_path1, dpi=180, bbox_inches="tight")
 plt.close()
 print(f"[OK] 06_data_flow.png  ->  {OUT_DIR}")
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 02 – Finance Data Risk Pyramid
@@ -238,11 +241,11 @@ ax2.text(5, 0.6,
          bbox=dict(boxstyle="round,pad=0.4",
                    facecolor="#FFF9EC", edgecolor="none", linewidth=1.5))
 
+fig2.text(0.5, 0.01, FOOTER_TEXT, ha="center", fontsize=8, color=DEEP_NAVY, alpha=0.50)
 out_path2 = os.path.join(OUT_DIR, "06_risk_pyramid.png")
 plt.savefig(out_path2, dpi=180, bbox_inches="tight")
 plt.close()
 print(f"[OK] 06_risk_pyramid.png  ->  {OUT_DIR}")
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 03 – Safe AI Workflow (end-to-end)
@@ -308,6 +311,7 @@ for y, text, side, color in annotations:
              ha="left", va="center",
              fontsize=12, color=color, fontstyle="italic", zorder=3)
 
+fig3.text(0.5, 0.01, FOOTER_TEXT, ha="center", fontsize=8, color=DEEP_NAVY, alpha=0.50)
 out_path3 = os.path.join(OUT_DIR, "06_safe_workflow.png")
 plt.savefig(out_path3, dpi=180, bbox_inches="tight")
 plt.close()

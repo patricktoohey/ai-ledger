@@ -15,9 +15,16 @@ NOTES.md
 StatusUpdate.md
 REPO_STRUCTURE_UPDATE.MD
 backlog.md
+my_ideas.md
 
 # Claude Code local config
 .claude/
+
+# Articles not yet ready to publish
+articles/17b-your-first-claude-md/
+articles/18-scheduled-workflows/
+articles/19-multi-agent-orchestration/
+articles/20-version-control-for-accountants/
 
 # Windows artifacts
 nul

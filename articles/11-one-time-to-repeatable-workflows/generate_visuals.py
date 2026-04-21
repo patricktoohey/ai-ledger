@@ -14,12 +14,15 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
+import numpy as np
 import os
 
 # -- Output directory --------------------------------------------------------
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR    = os.path.join(SCRIPT_DIR, "visuals")
 os.makedirs(OUT_DIR, exist_ok=True)
+
+# -- Logo mark ---------------------------------------------------------------
 
 # -- PythonMuse brand colors (SKILL.md standard block) -----------------------
 DEEP_NAVY     = "#002639"
@@ -43,7 +46,6 @@ def text_color_for(bg):
         return WHITE
     return DEEP_NAVY
 
-
 # -----------------------------------------------------------------------------
 # Visual 01 -- Hero / Front Image
 # -----------------------------------------------------------------------------
@@ -63,7 +65,7 @@ ax1.text(6, 2.4, "Designing AI Projects That Actually Scale",
          ha="center", va="center",
          fontsize=14, color=OCEAN_TEAL, style="italic")
 
-ax1.text(6, 1.4, "PythonMuse LLC  |  March 2026",
+ax1.text(6, 1.4, "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger",
          ha="center", va="center",
          fontsize=12, color=OCEAN_TEAL, alpha=0.7)
 
@@ -73,7 +75,6 @@ fig1.savefig(os.path.join(OUT_DIR, "11_visual_front.png"),
              dpi=180, bbox_inches="tight", facecolor=fig1.get_facecolor())
 plt.close(fig1)
 print("  Saved 11_visual_front.png")
-
 
 # -----------------------------------------------------------------------------
 # Visual 02 -- Nine-Step Workflow Pattern
@@ -163,6 +164,5 @@ fig2.savefig(os.path.join(OUT_DIR, "11_workflow_steps.png"),
              dpi=180, bbox_inches="tight", facecolor=fig2.get_facecolor())
 plt.close(fig2)
 print("  Saved 11_workflow_steps.png")
-
 
 print("\nAll Article 11 visuals generated.")

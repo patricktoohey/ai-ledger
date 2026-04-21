@@ -18,6 +18,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.patches import Rectangle, FancyBboxPatch
+import numpy as np
 import os
 
 # ── Output directory ──────────────────────────────────────────────────────────
@@ -49,7 +50,6 @@ def text_color_for(bg):
         return WHITE
     return DEEP_NAVY
 
-
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 01 – Hero / Front Image
 # ─────────────────────────────────────────────────────────────────────────────
@@ -75,7 +75,7 @@ ax1.text(6, 2.2, "But It's Also Not Plug-and-Play",
 ax1.plot([3, 9], [1.5, 1.5], color=BRIGHT_TEAL, linewidth=2)
 
 # Byline
-ax1.text(6, 0.9, "PythonMuse LLC",
+ax1.text(6, 0.9, "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger",
          ha="center", va="center",
          fontsize=12, color=OCEAN_TEAL)
 
@@ -83,7 +83,6 @@ out_path1 = os.path.join(OUT_DIR, "04_visual_front.png")
 plt.savefig(out_path1, dpi=180, bbox_inches="tight")
 plt.close()
 print(f"[OK] 04_visual_front.png  ->  {OUT_DIR}")
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 02 – COSO Five Components for Generative AI
@@ -187,7 +186,6 @@ out_path2 = os.path.join(OUT_DIR, "04_coso_five_components.png")
 plt.savefig(out_path2, dpi=180, bbox_inches="tight")
 plt.close()
 print(f"[OK] 04_coso_five_components.png  ->  {OUT_DIR}")
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 03 – Traceable AI Workflow

@@ -28,6 +28,8 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR    = os.path.join(SCRIPT_DIR, "visuals")
 os.makedirs(OUT_DIR, exist_ok=True)
 
+# -- Logo mark ---------------------------------------------------------------
+
 # -- PythonMuse brand colors (SKILL.md standard block) -----------------------
 DEEP_NAVY     = "#002639"
 MIDNIGHT_TEAL = "#003144"
@@ -50,7 +52,6 @@ def text_color_for(bg):
         return WHITE
     return DEEP_NAVY
 
-
 # -----------------------------------------------------------------------------
 # Visual 01 -- Hero / Front Image
 # -----------------------------------------------------------------------------
@@ -70,7 +71,7 @@ ax1.text(6, 2.4, "And How to Make Them Audit-Ready",
          ha="center", va="center",
          fontsize=14, color=OCEAN_TEAL, style="italic")
 
-ax1.text(6, 1.4, "PythonMuse LLC  |  March 2026",
+ax1.text(6, 1.4, "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger",
          ha="center", va="center",
          fontsize=12, color=OCEAN_TEAL, alpha=0.7)
 
@@ -80,7 +81,6 @@ fig1.savefig(os.path.join(OUT_DIR, "12_visual_front.png"),
              dpi=180, bbox_inches="tight", facecolor=fig1.get_facecolor())
 plt.close(fig1)
 print("  Saved 12_visual_front.png")
-
 
 # -----------------------------------------------------------------------------
 # Visual 02 -- Audit-Ready Framework (Six Elements)
@@ -148,7 +148,6 @@ fig2.savefig(os.path.join(OUT_DIR, "12_audit_framework.png"),
              dpi=180, bbox_inches="tight", facecolor=fig2.get_facecolor())
 plt.close(fig2)
 print("  Saved 12_audit_framework.png")
-
 
 # -----------------------------------------------------------------------------
 # Visual 03 -- COSO to PythonMuse Mapping
@@ -219,7 +218,6 @@ fig3.savefig(os.path.join(OUT_DIR, "12_coso_mapping.png"),
 plt.close(fig3)
 print("  Saved 12_coso_mapping.png")
 
-
 # -----------------------------------------------------------------------------
 # Visual 04 -- Series Connection (shared diagram)
 # -----------------------------------------------------------------------------
@@ -278,6 +276,5 @@ fig4.savefig(os.path.join(OUT_DIR, "12_series_connection.png"),
              dpi=180, bbox_inches="tight", facecolor=fig4.get_facecolor())
 plt.close(fig4)
 print("  Saved 12_series_connection.png")
-
 
 print("\nAll Article 12 visuals generated.")

@@ -21,6 +21,8 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR    = os.path.join(SCRIPT_DIR, "visuals")
 os.makedirs(OUT_DIR, exist_ok=True)
 
+# -- Logo mark ---------------------------------------------------------------
+
 # -- PythonMuse brand colors (SKILL.md standard block) -----------------------
 DEEP_NAVY     = "#002639"
 MIDNIGHT_TEAL = "#003144"
@@ -44,7 +46,6 @@ def text_color_for(bg):
         return WHITE
     return DEEP_NAVY
 
-
 # ---------------------------------------------------------------------------
 # Visual 01 -- Hero / Front Image
 # ---------------------------------------------------------------------------
@@ -64,7 +65,7 @@ ax1.text(6, 2.6, "From Excel Shortcuts to AI Workflows",
          ha="center", va="center",
          fontsize=16, color=OCEAN_TEAL, style="italic")
 
-ax1.text(6, 1.4, "PythonMuse LLC  |  March 2026",
+ax1.text(6, 1.4, "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger",
          ha="center", va="center",
          fontsize=12, color=OCEAN_TEAL, alpha=0.7)
 
@@ -74,7 +75,6 @@ fig1.savefig(os.path.join(OUT_DIR, "09_visual_front.png"),
              dpi=180, bbox_inches="tight", facecolor=fig1.get_facecolor())
 plt.close(fig1)
 print("  Saved 09_visual_front.png")
-
 
 # ---------------------------------------------------------------------------
 # Visual 02 -- Training Gap Bar Chart
@@ -115,7 +115,6 @@ fig2.savefig(os.path.join(OUT_DIR, "09_training_gap.png"),
              dpi=180, bbox_inches="tight")
 plt.close(fig2)
 print("  Saved 09_training_gap.png")
-
 
 # ---------------------------------------------------------------------------
 # Visual 03 -- Excel Learning Path vs AI Learning Path
@@ -196,7 +195,6 @@ fig3.savefig(os.path.join(OUT_DIR, "09_learning_path.png"),
 plt.close(fig3)
 print("  Saved 09_learning_path.png")
 
-
 # ---------------------------------------------------------------------------
 # Visual 04 -- The 13-Skill Framework Grid
 # ---------------------------------------------------------------------------
@@ -257,6 +255,5 @@ fig4.savefig(os.path.join(OUT_DIR, "09_framework_grid.png"),
              dpi=180, bbox_inches="tight", facecolor=fig4.get_facecolor())
 plt.close(fig4)
 print("  Saved 09_framework_grid.png")
-
 
 print("\nAll Article 09 visuals generated.")

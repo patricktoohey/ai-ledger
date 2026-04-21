@@ -11,12 +11,15 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
+import numpy as np
 import os
 
 # -- Output directory --------------------------------------------------------
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR    = os.path.join(SCRIPT_DIR, "visuals")
 os.makedirs(OUT_DIR, exist_ok=True)
+
+# -- Logo mark ---------------------------------------------------------------
 
 # -- PythonMuse brand colors (SKILL.md standard block) -----------------------
 DEEP_NAVY     = "#002639"
@@ -41,7 +44,6 @@ def text_color_for(bg):
         return WHITE
     return DEEP_NAVY
 
-
 # =============================================================================
 # Visual 01 -- Hero / Front Image
 # =============================================================================
@@ -61,7 +63,7 @@ ax1.text(6, 2.6, "Why the problem is not Excel -- it is the missing instruction 
          ha="center", va="center",
          fontsize=14, color=OCEAN_TEAL, style="italic")
 
-ax1.text(6, 1.5, "PythonMuse LLC  |  March 2026",
+ax1.text(6, 1.5, "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger",
          ha="center", va="center",
          fontsize=12, color=OCEAN_TEAL, alpha=0.70)
 
@@ -80,7 +82,6 @@ fig1.savefig(os.path.join(OUT_DIR, "15_visual_front.png"),
              dpi=180, bbox_inches="tight", facecolor=fig1.get_facecolor())
 plt.close(fig1)
 print("  Saved 15_visual_front.png")
-
 
 # =============================================================================
 # Visual 02 -- Three-Tier Data Approach
@@ -199,7 +200,7 @@ ax2.text(7, skill_y - 0.25,
          fontsize=12, color=WHITE)
 
 # Footer
-ax2.text(7, 0.2, "PythonMuse LLC",
+ax2.text(7, 0.2, "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger",
          ha="center", va="center",
          fontsize=10, color=DEEP_NAVY, alpha=0.50)
 
@@ -207,6 +208,5 @@ fig2.savefig(os.path.join(OUT_DIR, "15_data_tiers.png"),
              dpi=180, bbox_inches="tight", facecolor=fig2.get_facecolor())
 plt.close(fig2)
 print("  Saved 15_data_tiers.png")
-
 
 print("\nAll Article 15 visuals generated.")

@@ -24,12 +24,15 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.patches import Rectangle
+import numpy as np
 import os
 
 # -- Output directory --------------------------------------------------------
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUT_DIR    = os.path.join(SCRIPT_DIR, "visuals")
 os.makedirs(OUT_DIR, exist_ok=True)
+
+# -- Logo mark ---------------------------------------------------------------
 
 # -- PythonMuse brand colors (SKILL.md standard block) -----------------------
 DEEP_NAVY     = "#002639"
@@ -45,6 +48,8 @@ LIGHT_GRAY    = "#F5F5F5"
 ALERT_RED     = "#E05252"
 GRAY_LINE     = "#CCCCCC"
 
+FOOTER_TEXT = "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger"
+
 DARK_BG_COLORS = {DEEP_NAVY, MIDNIGHT_TEAL, OCEAN_TEAL, SEA_GREEN, ALERT_RED}
 
 def text_color_for(bg):
@@ -52,7 +57,6 @@ def text_color_for(bg):
     if bg in DARK_BG_COLORS:
         return WHITE
     return DEEP_NAVY
-
 
 # --------------------------------------------------------------------------
 def draw_arch_box(ax, cx, top_y, width, header_h, body_h,
@@ -97,7 +101,6 @@ def draw_arch_box(ax, cx, top_y, width, header_h, body_h,
                 fontsize=12, color=DEEP_NAVY, zorder=3)
 
     return body_bottom
-
 
 # --------------------------------------------------------------------------
 # Visual 01 -- AI Tools in Finance -- Safe Architecture
@@ -213,11 +216,11 @@ ax.text(7, 0.55,
         fontsize=13, color=DEEP_NAVY, fontstyle="italic")
 
 # -- Save ------------------------------------------------------------------
+fig.text(0.5, 0.01, FOOTER_TEXT, ha="center", fontsize=8, color=DEEP_NAVY, alpha=0.50)
 out_path = os.path.join(OUT_DIR, "03_safe_architecture.png")
 plt.savefig(out_path, dpi=180, bbox_inches="tight")
 plt.close()
 print(f"[OK] 03_safe_architecture.png  ->  {OUT_DIR}")
-
 
 # --------------------------------------------------------------------------
 # Visual 02 -- "What IT Imagines vs What Actually Happens"
@@ -284,11 +287,11 @@ ax2.text(5.5, 0.78,
                    facecolor=LIGHT_GRAY, edgecolor="none", linewidth=0),
          zorder=5)
 
+fig2.text(0.5, 0.01, FOOTER_TEXT, ha="center", fontsize=8, color=DEEP_NAVY, alpha=0.50)
 out_path2 = os.path.join(OUT_DIR, "03_it_thinks_vs_reality.png")
 plt.savefig(out_path2, dpi=180, bbox_inches="tight")
 plt.close()
 print(f"[OK] 03_it_thinks_vs_reality.png  ->  {OUT_DIR}")
-
 
 # --------------------------------------------------------------------------
 # Visual 03 -- "Where These Tools Are Used" -- Industry Bar Chart
@@ -326,11 +329,11 @@ fig3.text(0.5, 0.01, trusted,
           ha="center", fontsize=12, color=DEEP_NAVY, fontstyle="italic")
 
 fig3.tight_layout(rect=[0, 0.07, 1, 1])
+fig3.text(0.5, 0.01, FOOTER_TEXT, ha="center", fontsize=8, color=DEEP_NAVY, alpha=0.50)
 out_path3 = os.path.join(OUT_DIR, "03_industry_adoption.png")
 plt.savefig(out_path3, dpi=180, bbox_inches="tight")
 plt.close()
 print(f"[OK] 03_industry_adoption.png  ->  {OUT_DIR}")
-
 
 # --------------------------------------------------------------------------
 # Visual 04 -- IT Approval Checklist
@@ -401,6 +404,7 @@ ax4.text(4.5, 0.75,
                    facecolor=WARM_GLOW, edgecolor="none", linewidth=0),
          zorder=5)
 
+fig4.text(0.5, 0.01, FOOTER_TEXT, ha="center", fontsize=8, color=DEEP_NAVY, alpha=0.50)
 out_path4 = os.path.join(OUT_DIR, "03_it_approval_checklist.png")
 plt.savefig(out_path4, dpi=180, bbox_inches="tight")
 plt.close()
