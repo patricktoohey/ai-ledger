@@ -251,4 +251,4 @@ That is your first system.
 
 ---
 
-*Related: [Ways to Use Claude](../02-ways-to-use-claude/) | [Getting the Right Tools Installed](../03-getting-the-right-tools-installed/) | [From One-Time Analysis to Repeatable Workflows](../11-one-time-to-repeatable-workflows/) | [AI Accounting Framework](https://github.com/PythonMuse/pythonmuse-ai-accounting-framework)*
+*Related: [The Power of Skills and Agents](../17-skills-and-agents-for-accountants/) | [Ways to Use Claude](../02-ways-to-use-claude/) | [Getting the Right Tools Installed](../03-getting-the-right-tools-installed/) | [From One-Time Analysis to Repeatable Workflows](../11-one-time-to-repeatable-workflows/) | [AI Accounting Framework](https://github.com/PythonMuse/pythonmuse-ai-accounting-framework)*

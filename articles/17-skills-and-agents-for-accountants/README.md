@@ -4,7 +4,7 @@
 
 ---
 
-**By Svetlana Toohey**
+**PythonMuse LLC**
 *Published April 2026*
 
 ![Skills and Agents for Accountants](./visuals/17_visual_front.png)
