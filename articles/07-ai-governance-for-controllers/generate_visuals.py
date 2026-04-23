@@ -17,6 +17,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
+import numpy as np
 import os
 
 # ── Output directory ──────────────────────────────────────────────────────────
@@ -37,14 +38,23 @@ WHITE         = "#FFFFFF"
 ALERT_RED     = "#E05252"
 GRAY_BG       = "#F4F6F7"
 GRAY_LINE     = "#CCCCCC"
+LIGHT_GRAY    = "#F5F5F5"
 
+# -- Text contrast helper (SKILL.md mandatory rule 3) -----------------------
+DARK_BG_COLORS = {DEEP_NAVY, MIDNIGHT_TEAL, OCEAN_TEAL, SEA_GREEN}
+
+def text_color_for(bg):
+    """Return correct text color per SKILL.md contrast rule."""
+    if bg in DARK_BG_COLORS:
+        return WHITE
+    return DEEP_NAVY
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 01 – Hero / Front Image
 # ─────────────────────────────────────────────────────────────────────────────
 fig1, ax1 = plt.subplots(figsize=(12, 6))
-fig1.patch.set_facecolor(DEEP_NAVY)
-ax1.set_facecolor(DEEP_NAVY)
+fig1.patch.set_facecolor(WHITE)
+ax1.set_facecolor(WHITE)
 ax1.set_xlim(0, 12)
 ax1.set_ylim(0, 6)
 ax1.axis("off")
@@ -52,28 +62,27 @@ ax1.axis("off")
 # Title
 ax1.text(6, 3.8, "AI Governance for Controllers",
          ha="center", va="center",
-         fontsize=26, fontweight="bold", color=BRIGHT_TEAL,
+         fontsize=26, fontweight="bold", color=DEEP_NAVY,
          linespacing=1.3)
 
 # Subtitle
 ax1.text(6, 2.6, "Turning Policy Into Real Controls\nUsing Claude and VS Code",
          ha="center", va="center",
-         fontsize=16, color=GOLDEN_YELLOW, fontstyle="italic",
+         fontsize=16, color=OCEAN_TEAL, fontstyle="italic",
          linespacing=1.3)
 
 # Divider line
-ax1.plot([3, 9], [1.7, 1.7], color=OCEAN_TEAL, linewidth=2)
+ax1.plot([3, 9], [1.7, 1.7], color=BRIGHT_TEAL, linewidth=2)
 
 # Byline
-ax1.text(6, 1.0, "PythonMuse  |  By Svetlana Toohey",
+ax1.text(6, 1.0, "PythonMuse LLC  |  github.com/PythonMuse/ai-ledger",
          ha="center", va="center",
-         fontsize=11, color=WHITE, alpha=0.7)
+         fontsize=12, color=OCEAN_TEAL, alpha=0.7)
 
 out_path1 = os.path.join(OUT_DIR, "07_visual_front.png")
 plt.savefig(out_path1, dpi=180, bbox_inches="tight")
 plt.close()
 print(f"[OK] 07_visual_front.png  ->  {OUT_DIR}")
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 02 – From AI Policy to Operational Controls
@@ -91,17 +100,17 @@ ax2.text(5, 11.5, "From AI Policy to Operational Controls",
          fontsize=18, fontweight="bold", color=DEEP_NAVY)
 ax2.text(5, 11.0, "The controller's governance framework",
          ha="center", va="center",
-         fontsize=11, color=OCEAN_TEAL, fontstyle="italic")
+         fontsize=14, color=OCEAN_TEAL, fontstyle="italic")
 
 # Seven vertical flow steps
 steps = [
-    ("AI Policy",             ALERT_RED,       WHITE),
-    ("Use Case Inventory",    GOLDEN_YELLOW,   DEEP_NAVY),
-    ("Risk Assessment",       GOLDEN_YELLOW,   DEEP_NAVY),
-    ("Control Design",        OCEAN_TEAL,      WHITE),
-    ("AI Skills",             BRIGHT_TEAL,     WHITE),
-    ("AI Agents",             SEA_GREEN,       WHITE),
-    ("Evidence & Monitoring", SOFT_SAGE,       DEEP_NAVY),
+    ("AI Policy",             ALERT_RED,       text_color_for(ALERT_RED)),
+    ("Use Case Inventory",    GOLDEN_YELLOW,   text_color_for(GOLDEN_YELLOW)),
+    ("Risk Assessment",       GOLDEN_YELLOW,   text_color_for(GOLDEN_YELLOW)),
+    ("Control Design",        OCEAN_TEAL,      text_color_for(OCEAN_TEAL)),
+    ("AI Skills",             BRIGHT_TEAL,     text_color_for(BRIGHT_TEAL)),
+    ("AI Agents",             SEA_GREEN,       text_color_for(SEA_GREEN)),
+    ("Evidence & Monitoring", SOFT_SAGE,       text_color_for(SOFT_SAGE)),
 ]
 
 box_width = 6.0
@@ -114,7 +123,7 @@ for i, ((label, bg, fg), y) in enumerate(zip(steps, y_positions)):
     box = FancyBboxPatch(
         (cx - box_width / 2, y - box_height / 2), box_width, box_height,
         boxstyle="round,pad=0.1",
-        facecolor=bg, edgecolor=DEEP_NAVY,
+        facecolor=bg, edgecolor="none",
         linewidth=2, zorder=2
     )
     ax2.add_patch(box)
@@ -137,14 +146,13 @@ ax2.text(5, 1.4,
          ha="center", va="center",
          fontsize=11, color=DEEP_NAVY, fontstyle="italic",
          bbox=dict(boxstyle="round,pad=0.45",
-                   facecolor="#FFF9EC", edgecolor=GOLDEN_YELLOW, linewidth=2.0),
+                   facecolor="#FFF9EC", edgecolor="none", linewidth=2.0),
          zorder=5)
 
 out_path2 = os.path.join(OUT_DIR, "07_governance_flow.png")
 plt.savefig(out_path2, dpi=180, bbox_inches="tight")
 plt.close()
 print(f"[OK] 07_governance_flow.png  ->  {OUT_DIR}")
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Visual 03 – Controller Governance Repository (layer stack)
@@ -162,18 +170,18 @@ ax3.text(6, 9.5, "Controller Governance Repository",
          fontsize=18, fontweight="bold", color=DEEP_NAVY)
 ax3.text(6, 9.0, "Each layer serves a governance purpose",
          ha="center", va="center",
-         fontsize=11, color=OCEAN_TEAL, fontstyle="italic")
+         fontsize=14, color=OCEAN_TEAL, fontstyle="italic")
 
 # Seven horizontal stacked layers, bottom to top
 # (folder, description, bg_color, text_color)
 layers = [
-    (".claude/",       "Configuration & Guardrails",    DEEP_NAVY,     WHITE),
-    ("evidence/",      "Audit Trail & Outputs",         OCEAN_TEAL,    WHITE),
-    ("agents/",        "Automated Orchestration",       SEA_GREEN,     WHITE),
-    ("skills/",        "Approved AI Workflows",         BRIGHT_TEAL,   WHITE),
-    ("assessments/",   "Risk Analysis",                 GOLDEN_YELLOW, DEEP_NAVY),
-    ("inventory/",     "Use Case Register",             WARM_GLOW,     DEEP_NAVY),
-    ("docs/",          "Policy & Controls",             SOFT_SAGE,     DEEP_NAVY),
+    (".claude/",       "Configuration & Guardrails",    DEEP_NAVY,     text_color_for(DEEP_NAVY)),
+    ("evidence/",      "Audit Trail & Outputs",         OCEAN_TEAL,    text_color_for(OCEAN_TEAL)),
+    ("agents/",        "Automated Orchestration",       SEA_GREEN,     text_color_for(SEA_GREEN)),
+    ("skills/",        "Approved AI Workflows",         BRIGHT_TEAL,   text_color_for(BRIGHT_TEAL)),
+    ("assessments/",   "Risk Analysis",                 GOLDEN_YELLOW, text_color_for(GOLDEN_YELLOW)),
+    ("inventory/",     "Use Case Register",             WARM_GLOW,     text_color_for(WARM_GLOW)),
+    ("docs/",          "Policy & Controls",             SOFT_SAGE,     text_color_for(SOFT_SAGE)),
 ]
 
 layer_width = 9.0
@@ -188,7 +196,7 @@ for i, (folder, desc, bg, fg) in enumerate(layers):
     box = FancyBboxPatch(
         (layer_x, y), layer_width, layer_height,
         boxstyle="round,pad=0.08",
-        facecolor=bg, edgecolor=DEEP_NAVY,
+        facecolor=bg, edgecolor="none",
         linewidth=1.5, zorder=2
     )
     ax3.add_patch(box)
@@ -196,13 +204,13 @@ for i, (folder, desc, bg, fg) in enumerate(layers):
     # Folder name on the left
     ax3.text(layer_x + 0.6, y + layer_height / 2, folder,
              ha="left", va="center",
-             fontsize=12, fontweight="bold", fontfamily="monospace",
+             fontsize=13, fontweight="bold", fontfamily="monospace",
              color=fg, zorder=3)
 
     # Description on the right
     ax3.text(layer_x + layer_width - 0.6, y + layer_height / 2, desc,
              ha="right", va="center",
-             fontsize=11, color=fg, zorder=3)
+             fontsize=12, color=fg, zorder=3)
 
 # Bottom callout
 ax3.text(6, 1.0,
@@ -210,7 +218,7 @@ ax3.text(6, 1.0,
          ha="center", va="center",
          fontsize=12, color=DEEP_NAVY, fontweight="bold", fontstyle="italic",
          bbox=dict(boxstyle="round,pad=0.45",
-                   facecolor="#FFF9EC", edgecolor=GOLDEN_YELLOW, linewidth=2.0),
+                   facecolor="#FFF9EC", edgecolor="none", linewidth=2.0),
          zorder=5)
 
 out_path3 = os.path.join(OUT_DIR, "07_repo_architecture.png")
