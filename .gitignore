@@ -1,3 +1,7 @@
+# Python venv
+.venv/
+site/
+
 # Temp files
 tmpclaude*
 _ul
