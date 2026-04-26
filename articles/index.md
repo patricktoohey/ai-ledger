@@ -34,6 +34,7 @@ Each article includes the full write-up, sample data, and the code to reproduce 
 | 17b | [Your First CLAUDE.md: How Accountants Define the Agent](17b-your-first-claude-md/README.md) | CLAUDE.md, agent configuration, accounting AI setup |
 | 21 | [The 3 Mindsets of AI Adoption in Accounting](21-three-mindsets-of-ai-adoption/README.md) | AI adoption, mindset, organizational change |
 
+| 23 | [Don't Trust the Model to Find What You Already Know Is There](23-schema-driven-sanitization/README.md) | Schema-Driven Data Sanitization for Small Business Accounting in the Age of AI |
 ---
 
 *By Svetlana Toohey*
