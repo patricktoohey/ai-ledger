@@ -2,7 +2,7 @@
 
 **Schema-Driven Data Sanitization for Small Business Accounting in the Age of AI**
 
-*~25 min read*
+*~27 min read*
 
 ---
 
@@ -18,7 +18,7 @@ Its authors describe it through its [system card](https://cdn.openai.com/pdf/c66
 
 That raises a practical question. If you're running a small-to-medium accounting department — not publicly traded, not subject to SOX, but still handling real financial data with real confidentiality obligations — what does "holistic privacy-by-design" actually look like when you want to use AI tools for analysis?
 
-This post works through that question. The answer, I think, is simpler and more reliable than most people expect — though it depends on one important distinction. Sometimes the data you want to analyze comes from systems *you* operate (your accounting software, your payroll system, your CRM exports), and you already know — or can readily document — its schema. Other times it arrives as a third-party artifact (a vendor's PDF report, a scanned bank statement, a CSV from a tool you didn't design), and the schema is something you have to *construct* before you can sanitize. Both cases land in the same deterministic pipeline. They just enter it through different doors. We'll walk through both.
+This post works through that question. The answer, I think, is simpler and more reliable than most people expect — though it depends on one important distinction. Sometimes the data you want to analyze comes from systems *you* operate (your accounting software, your payroll system, your CRM exports), and you already know — or can readily document — its schema (i.e., the column names and their meanings within your data). Other times it arrives as a third-party artifact (a vendor's PDF report, a scanned bank statement, a CSV from a tool you didn't design), and the schema is something you have to *construct* before you can sanitize. Both cases land in the same deterministic pipeline. They just enter it through different doors. We'll walk through both.
 
 > **A note on how this post was made.** This article was developed collaboratively with Claude Opus 4.6 (Anthropic), using extended thinking to reason through the architecture. I provided the research direction and editorial framing; Claude researched the Privacy Filter system card, synthesized the COSO and CIA triad mappings, and drafted the technical pipeline and code examples. The initial prompt produced a strong first draft — but the published version is the result of multiple rounds of collaborative revision, where I reviewed each section, challenged assumptions, expanded scope, and refined the argument with Claude iterating alongside me. That process matters: working with any AI system, agentic or otherwise, requires human judgment at every stage. The tool accelerates the work; it doesn't replace the editorial responsibility. The initial prompt that started this conversation is included as a footnote.[^1]
 
@@ -54,7 +54,18 @@ So you've recognized that raw data shouldn't go to the cloud unexamined. The nat
 
 This is better than sending raw data. But it's the wrong *primary* control, and the system card itself explains why.
 
-The Privacy Filter model detects eight categories of sensitive spans: account numbers, addresses, emails, names, phone numbers, URLs, dates, and secrets. It's also tunable — you can adjust how aggressive it is. Set it cautious, and it will only flag things it's very confident about, which means it might miss some sensitive items but won't waste your time with false alarms. Set it aggressive, and it will catch more, but it might also flag your company name as a person or redact a street name that's actually a product line. That dial matters, and we'll revisit it when we discuss where Privacy Filter fits in the pipeline.
+The Privacy Filter model detects eight categories of sensitive spans:
+
+- account numbers
+- addresses
+- emails
+- names
+- phone numbers
+- URLs
+- dates
+- secrets
+
+The Privacy Filter model is tunable — you can adjust how aggressive it is. Set it cautious, and it will only flag things it's very confident about, which means it might miss some sensitive items but won't waste your time with false alarms. Set it aggressive, and it will catch more, but it might also flag your company name as a person or redact a street name that's actually a product line. That dial matters, and we'll revisit it when we discuss where Privacy Filter fits in the pipeline.
 
 But consider the system card's own failure modes:
 
@@ -63,20 +74,26 @@ But consider the system card's own failure modes:
 - **Missed secrets** for novel credential formats and project-specific token patterns
 - **Fragmented span boundaries** in mixed-format text with heavy punctuation
 
-Now map those failure modes onto accounting data. 
-- An accounting dataset is *dense* with exactly the patterns this model struggles with. 
+Now map those failure modes onto accounting data. An accounting dataset is *dense* with exactly the patterns this model struggles with:
+
 - Vendor names that are also common words ("Summit", "Apex", "First Choice"). 
 - Account numbers in non-standard formats specific to your bank. 
 - Tax ID fragments embedded in memo fields. 
 - Dollar amounts that become sensitive in context even though they're not PII in isolation — knowing that your company paid exactly $47,250 to a specific vendor in a specific month can be a material business secret even after the vendor name is masked.
 
-The fundamental issue is this: **a probabilistic model (i.e., one that makes educated guesses based on patterns it learned during training) is guessing about what's sensitive in your data. For the data you control, you already know — or can readily find out — what is sensitive.** You designed the schema, or your accounting software did and you can inspect it. You chose the column names, or they're documented in the export specification. You know which fields contain customer names and which contain GL account descriptions. You know the format of your bank's account numbers. You know that the memo field in your AP ledger sometimes contains SSN fragments because someone entered them there in 2019 and you haven't cleaned it up yet.
+The fundamental issue is this: **a probabilistic model (i.e., one that makes educated guesses based on patterns it learned during training) is guessing about what's sensitive in your data. For the data you control, you already know — or can readily find out — what is sensitive.** 
 
-For data that *isn't* yours by design — a vendor's quarterly statement, a scanned report from your bank, a CSV from a third-party system you didn't build — you may not know the schema yet. That doesn't change the conclusion, but it changes the order of operations: you build the schema first (with help, including from probabilistic tools), then apply the same deterministic sanitization. We'll come back to this case shortly.
+- You designed the schema, or your accounting software did and you can inspect it. 
+- You chose the column names, or they're documented in the export specification. 
+- You know which fields contain customer names and which contain GL account descriptions. 
+- You know the format of your bank's account numbers. 
+- You know that the memo field in your AP ledger sometimes contains SSN fragments because someone entered them there in 2019 and you haven't cleaned it up yet.
+
+For data that *isn't* yours by design — a vendor's quarterly statement, a scanned report from your bank, a CSV from a third-party system you didn't build — you may not know the schema yet. That doesn't change the conclusion, but it changes the order of operations: you build the schema first (with help, including from probabilistic tools), then apply the same deterministic sanitization (i.e., a known input always produces the same sanitized output). We'll come back to this case shortly.
 
 You can make **deterministic** decisions about this data (i.e., decisions that follow concrete rules you define, removing any guesswork from the results). Using a probabilistic model as the *primary* gate between your raw data and a cloud API means trusting educated guesses to rediscover structural knowledge you already possess. That's architecturally backwards.
 
-A fair challenge here: do you *really* know your schema as well as you think? What about the third-party PDF a vendor emailed you that you converted to CSV and never audited? The comment field where an employee pasted a client's home address because it was faster than switching to the CRM? The bank feed description that embeds a counterparty's full name in a free-text string? Before you proceed with confidence, ask yourself:
+The fair challenge here: do you *really* know your schema as well as you think? What about the third-party PDF a vendor emailed you that you converted to CSV and never audited? The comment field where an employee pasted a client's home address because it was faster than switching to the CRM? The bank feed description that embeds a counterparty's full name in a free-text string? Before you proceed with confidence, ask yourself:
 
 - **Have you audited free-text and memo fields?** These are the most common place for sensitive data to hide outside its designated column. People put whatever is convenient in a notes field — SSNs, phone numbers, medical context, personal addresses — because the field accepts anything.
 - **Do you ingest third-party documents?** Vendor invoices, bank statements, client-provided spreadsheets, and scanned PDFs all carry schemas you didn't design. If you're converting these into your data pipeline, you're inheriting their structure — and their surprises.
@@ -94,7 +111,7 @@ The better approach inverts the dependency. Instead of asking a model "what's se
 
 The pipeline looks like this:
 
-**1. Schema Inventory (or Discovery, for third-party documents) → 2. Synthetic Data Generation → 3. Transformation Script Development → 4. Deterministic Sanitization → 5. Cloud Analysis → 6. Result Re-identification**
+**1. Schema Inventory (or Discovery, for third-party documents) → 2. Synthetic Data Generation → 3. Transformation Script Development → 4. Deterministic Sanitization → 5. Verification → 6. Cloud Analysis → 7. Result Re-identification**
 
 Let's walk through each stage.
 
@@ -294,20 +311,25 @@ The output is a sanitized dataset that:
 - Preserves referential integrity through consistent pseudonymization
 - Retains the analytical payload the cloud model needs
 - Is produced by auditable, version-controlled, deterministic code
+- It requires no cloud interaction, all processing is done locally.
 
-### Stage 5: Cloud Analysis
+### Stage 5: Verification
 
-Send the sanitized dataset to the cloud model. Because you've preserved the structural relationships in the data, the model can perform the analysis you need: anomaly detection, trend analysis, narrative generation, forecasting. It's working with real patterns from your real data, but it never sees the identities behind those patterns.
+Before the sanitized output leaves your environment, run it through a probabilistic PII detector — Privacy Filter or a similar model — as a verification step. If the model flags residual sensitive data in something the deterministic sanitizer was supposed to have cleaned, treat each flag as a signal: a gap in the schema inventory, a transformation script that missed a case, or a free-text field with content you didn't anticipate. The flag rate should be low. When it isn't, the answer is to fix the deterministic layer, not to lean harder on the probabilistic one.
 
-### Stage 6: Result Re-identification (Local)
+This stage is the architectural complement to Stages 1–4: deterministic transformation handles the known structure, and probabilistic verification catches what the structural knowledge missed. The full architectural reasoning — including the role this layer plays during schema discovery for third-party documents, and the option to run the verification model entirely on your own hardware — is in the "Where Privacy Filter Fits" section below.
+
+### Stage 6: Cloud Analysis
+
+Send the sanitized, verified dataset to the cloud model. Because you've preserved the structural relationships in the data, the model can perform the analysis you need: anomaly detection, trend analysis, narrative generation, forecasting. It's working with real patterns from your real data, but it never sees the identities behind those patterns.
+
+### Stage 7: Result Re-identification (Local)
 
 When the cloud model returns results that reference pseudonymized entities ("VENDOR_a3f2c1e8 shows a 340% increase in Q3 expenses"), you re-identify locally using your encrypted lookup table. The re-identification step happens entirely in your local environment. The cloud model never needs to know that VENDOR_a3f2c1e8 is Acme Consulting.
 
 ## Where Privacy Filter Fits: The Verification Layer
 
-Here's where the OpenAI Privacy Filter (or a model like it) earns its place in the architecture — not as the primary sanitization gate, but as an *audit layer*.
-
-After your deterministic sanitizer has processed the data, run the sanitized output through Privacy Filter as a verification step. If the model detects residual PII in supposedly sanitized data, that's a signal that your schema inventory missed something, your transformation scripts have a gap, or a free-text field contained something unexpected.
+Stage 5 above describes *what* the verification step does. This section explains *why* the architecture puts probabilistic detection there rather than at the front, and why the same model that's the wrong primary control is the right verification layer.
 
 This is exactly the role the system card envisions. The model becomes part of a "holistic privacy-by-design approach" rather than being asked to shoulder the entire burden alone. Its false negatives become less dangerous because the deterministic layer has already handled the known structure. Its false positives become useful signals rather than disruptive over-redaction, because you can investigate each flag against your schema inventory.
 
@@ -360,6 +382,18 @@ If you're an accounting manager or controller at a small business considering AI
 **Document everything.** The transformation scripts, the schema inventory, the pseudonym mapping (encrypted), the Privacy Filter audit results. This documentation is your evidence that you've taken reasonable care with data confidentiality — which matters for client relationships, insurance, and potential regulatory interactions even if you're not subject to SOX.
 
 **Test with real data in a controlled setting before going to production.** Run your sanitization pipeline against a sample of real data, then manually review the output. Are there fields you missed? Patterns in memo fields you didn't anticipate? Names leaking through in unexpected places? This is where you discover the gaps that synthetic data couldn't reveal.
+
+## Where We Can Go Deeper
+
+The architecture above is the *what*. Several topics that would round out a production deployment are out of scope for this post — each warrants its own treatment. A short tour of the open questions, with where I'd start:
+
+- **How do you test sanitization scripts and catch regressions when input formats drift?** The transformations are production code, and silent drift in an upstream format (a renamed column, a new field, a re-templated PDF) can quietly bypass them. A reasonable starting point: unit tests against synthetic fixtures (you already have the generator from Stage 2), golden-output tests that fail loudly when transformation behavior changes, and a small regression suite that runs whenever a schema is re-discovered. The harder open question is the *trigger* — how do you know an input format has actually drifted enough to warrant a re-run, before a sanitization gap goes live?
+
+- **Who owns the schema inventory, and how do changes to transformation scripts get reviewed?** These are organizational questions, not technical ones, and the answers vary by company size. For a small team, a single person who owns the inventory document and signs off on transformation changes is probably enough. For a larger team, treating the inventory and the scripts as version-controlled code with normal code review applies cleanly. The encryption key for the pseudonym lookup table needs its own answer — who holds it, where it's stored, how it's rotated, and what happens when the holder leaves.
+
+- **What evidence do you keep, and how would you respond to an auditor or insurer asking to see it?** The COSO mapping above gestures at this, but a full treatment would cover concrete artifacts: pinned versions of the transformation scripts, run logs, the Privacy Filter flags and how each was investigated, and a retention period for all of the above. A reasonable default is to keep everything tied to a sanitization run for at least as long as you'd retain the underlying source data, and to treat the script repository itself as a piece of audit evidence.
+
+Each of these warrants its own post. Naming them here rather than treating them lightly is deliberate — sanitization-script testing in particular needs a careful walkthrough, given how easily a regression in your transformation layer can defeat the rest of the architecture.
 
 ## The Broader Point
 
