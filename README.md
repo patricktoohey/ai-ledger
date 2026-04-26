@@ -19,6 +19,16 @@ Each article includes the full write-up, sample data, and the code to reproduce 
 | 05 | [Reproducible Accounting](articles/05-reproducible-accounting/) | Accounting as code, audit evidence, version control, reproducible financial reporting |
 | 06 | [How to Use AI in Accounting Without Sending the Wrong Data](articles/06-safe-ai-data-workflows/) | Data masking, local vs cloud processing, safe AI workflows, QuickBooks demo, validation hooks |
 | 07 | [AI Governance for Controllers](articles/07-ai-governance-for-controllers/) | COSO framework, controller governance, use case inventory, AI skills, agents, VS Code |
+| 08 | [Why Claude "Forgets" -- And How to Fix It](articles/08-why-claude-forgets/) | Context window, external memory, project files, plan.md, status_update.md, CLAUDE.md |
+| 09 | [How Accountants Learn AI](articles/09-how-accountants-learn-ai/) | Excel-to-AI learning path, 13-skill framework, Markdown, Python, Git, hooks, canary, project hygiene |
+| 10 | [AI in Accounting: Real Use Cases -- and How to Structure Them](articles/10-ai-use-cases-and-structure/) | Reconciliations, variance analysis, ad hoc analysis, 3-tier classification, exploratory vs repeatable vs audit-ready |
+| 11 | [From One-Time Analysis to Repeatable Workflows](articles/11-one-time-to-repeatable-workflows/) | 9-step workflow pattern, data masking, headers-only, hooks, plan approval, SKILL documentation |
+| 12 | [When to Trust AI to Run Your Accounting Workflows](articles/12-audit-ready-ai-workflows/) | Audit-ready framework, COSO mapping, governance controls, logged execution, canary checks |
+| 13 | [AI in Accounting Isn't Just About Efficiency -- It's About Control](articles/13-zero-trust-ai-accounting/) | Zero Trust for AI, OWASP LLM risks, data controls, trust but verify, four-level framework, checklist |
+| 14 | [Stop Using One AI Like It Is Excel](articles/14-ai-team-for-accountants/) | Claude vs ChatGPT vs Copilot, model orchestration, skills, GitHub as distribution layer, folder structure as prompt |
+| 15 | ["AI Can't Work With Our Excel Files"... or Can It?](articles/15-ai-and-excel-files/) | Excel instruction layer, SKILL for spreadsheets, three-tier data approach, train once reuse forever |
+| 16 | [The PDF Token Trap](articles/16-pdf-token-trap/) | PDF-to-Markdown workflow, token efficiency, data masking, reusable Skills, convert once reuse forever |
+| 17 | [The Power of Skills and Agents: How Accountants Actually Use AI](articles/17-skills-and-agents-for-accountants/) | Skills, agents, workflow design, internal controls, living documentation |
 
 ---
 
@@ -73,6 +83,39 @@ See the full list at [community/ideas-wanted.md](community/ideas-wanted.md).
 Open an issue, comment on an existing request, or submit a pull request.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for details and [community/roadmap.md](community/roadmap.md) for where the project is headed.
+
+---
+
+## License
+
+This project uses a dual license:
+
+- **Written content** (articles, templates, worksheets, examples, documentation) is licensed under [CC BY-NC-SA 4.0](LICENSE) — you may share and adapt with attribution, for non-commercial purposes, under the same license.
+- **Python source code** (`.py` files) is licensed under the [MIT License](LICENSE-CODE) — free to use, modify, and distribute.
+
+See [LICENSE](LICENSE) and [LICENSE-CODE](LICENSE-CODE) for full details.
+
+---
+
+## ⚠️ Disclaimer
+
+This repository is provided for educational purposes only.
+
+- Not accounting, audit, tax, or legal advice  
+- No guarantee of accuracy or completeness  
+- Use at your own risk  
+
+---
+
+### AI Usage Notice
+This repository may include AI-assisted workflows and scripts.
+
+Users must:
+- Validate all outputs independently  
+- Ensure data privacy and compliance  
+- Avoid using sensitive or confidential data without proper controls  
+
+PythonMuse LLC is not responsible for any outcomes resulting from use of this code.
 
 ---
 
