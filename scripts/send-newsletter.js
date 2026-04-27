@@ -21,6 +21,9 @@
  *   FROM_NAME        — defaults to "PythonMuse LLC"
  *   UNSUBSCRIBE_URL  — defaults to placeholder; update before live sends
  *
+ * Note: relative links in articles are automatically converted to absolute
+ * GitHub URLs so they work in email. Update GITHUB_REPO if the repo moves.
+ *
  * ── HUMAN SETUP NOTES ────────────────────────────────────────────────────────
  *
  *  1. SUBSCRIBERS FILE
@@ -47,6 +50,11 @@
  *     Pages and update the paths in the article, or remove image lines for
  *     email sends. The --preview mode will show you exactly what renders.
  *
+ *  5. RELATIVE LINKS
+ *     Relative links (../other-article/, ../../examples/...) are converted
+ *     to absolute GitHub URLs. Update GITHUB_REPO if the repo moves.
+ *     Search: "UPDATE_GITHUB_REPO"
+ *
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
@@ -61,11 +69,19 @@ if (!articlePath) {
   process.exit(1);
 }
 
+// ─── Configuration ─────────────────────────────────────────────────────────────
+
+const FROM_NAME       = process.env.FROM_NAME       || "PythonMuse LLC";
+const FROM_EMAIL      = process.env.FROM_EMAIL      || "newsletter@pythonmuse.com"; // UPDATE_FROM_EMAIL
+const UNSUBSCRIBE_URL = process.env.UNSUBSCRIBE_URL || "https://pythonmuse.com/unsubscribe"; // UPDATE_UNSUBSCRIBE_URL
+const GITHUB_REPO     = "https://github.com/PythonMuse/ai-ledger"; // UPDATE_GITHUB_REPO
+const GITHUB_URL      = GITHUB_REPO;
+
 // ─── 1. Parse markdown article ────────────────────────────────────────────────
 
 const raw = fs.readFileSync(articlePath, "utf8");
 
-// Parse optional YAML front-matter block (--- key: value ---)
+// Parse optional YAML front-matter
 let frontMatter = {};
 let body = raw;
 
@@ -80,14 +96,33 @@ if (raw.startsWith("---")) {
   }
 }
 
-// Pull title from front-matter or first H1 heading in the article
+// Pull title from front-matter or first H1
 const h1Match = body.match(/^# (.+)$/m);
 const title   = frontMatter.title   || (h1Match ? h1Match[1] : path.basename(articlePath, ".md").replace(/-/g, " "));
 const subject = frontMatter.subject || `New article: ${title}`;
 
-// Preview text: first non-heading, non-image paragraph
-const previewText = body
-  .split("\n")
+// Strip H1 (shown in hero instead)
+body = body.replace(/^# .+$/m, "").trim();
+
+// Strip local image references (won't render in email — host visuals publicly first)
+body = body.replace(/^!\[.*?\]\(\.\/visuals\/.*?\)\s*$/gm, "");
+
+// Convert relative markdown links to absolute GitHub URLs
+// Skips external links (http/https) and anchors (#)
+const repoRoot       = path.dirname(__dirname);
+const absArticleDir  = path.dirname(path.resolve(articlePath));
+const relArticleDir  = path.relative(repoRoot, absArticleDir).replace(/\\/g, "/");
+
+body = body.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, text, href) => {
+  if (href.startsWith("http://") || href.startsWith("https://") || href.startsWith("#")) {
+    return match;
+  }
+  const resolved = path.posix.normalize(`${relArticleDir}/${href}`);
+  return `[${text}](${GITHUB_REPO}/tree/main/${resolved})`;
+});
+
+// Preview text: first substantive non-heading paragraph
+const previewText = body.split("\n")
   .filter(l => l.trim() && !l.startsWith("#") && !l.startsWith("!") && !l.startsWith("---") && !l.startsWith("**PythonMuse"))
   .map(l => l.replace(/[*`>\[\]]/g, "").trim())
   .find(l => l.length > 40) || "";
@@ -95,25 +130,15 @@ const preview = frontMatter.preview || previewText.slice(0, 140) + (previewText.
 
 // ─── 2. Markdown → HTML ───────────────────────────────────────────────────────
 //
-// This is a minimal in-house parser sufficient for PythonMuse article structure.
-// For full GFM support (tables, task lists, footnotes), install the `marked`
-// package and replace the markdownToHtml call:
-//   npm install marked
-//   const { marked } = require("marked");
-//   const articleHtml = marked(body);
+// Minimal in-house parser sufficient for PythonMuse article structure.
+// For full GFM support install `marked` and replace markdownToHtml(body)
+// with marked(body):  npm install marked  →  const { marked } = require("marked");
 
 function markdownToHtml(md) {
-  // Strip the H1 title (already shown in the hero section)
-  md = md.replace(/^# .+$/m, "").trim();
-
-  // Remove local image references (won't render in email — see setup note 5)
-  // To keep images: remove this line and host visuals at a public URL instead
-  md = md.replace(/^!\[.*?\]\(\.\/visuals\/.*?\)\s*$/gm, "");
-
   return md
     // Fenced code blocks
     .replace(/```[\w]*\n([\s\S]*?)```/g, (_, code) =>
-      `<pre style="background:#f0ede6;padding:16px;border-radius:4px;overflow-x:auto;font-size:13px;line-height:1.6;"><code>${code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`)
+      `<pre style="background:#e4f2f5;padding:16px;border-radius:4px;overflow-x:auto;font-size:13px;line-height:1.6;"><code style="color:#0e6273;">${code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code></pre>`)
     // Headings
     .replace(/^### (.+)$/gm, "<h3>$1</h3>")
     .replace(/^## (.+)$/gm,  "<h2>$1</h2>")
@@ -123,10 +148,10 @@ function markdownToHtml(md) {
     .replace(/\*(.+?)\*/g,     "<em>$1</em>")
     // Inline code
     .replace(/`([^`]+)`/g, "<code>$1</code>")
-    // Inline images (kept if path was not removed above)
+    // Images (kept if not already stripped)
     .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%;border-radius:6px;margin:16px 0;">')
-    // Links
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color:#1a56db;text-decoration:underline;">$1</a>')
+    // Links (already resolved to absolute URLs above)
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color:#0e7490;text-decoration:underline;">$1</a>')
     // Blockquotes
     .replace(/^> (.+)$/gm, "<blockquote>$1</blockquote>")
     // Horizontal rules
@@ -162,34 +187,34 @@ function buildEmailHtml({ title, preview, articleHtml, fromName, unsubscribeUrl,
   <title>${title}</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #f5f4f0; font-family: Georgia, 'Times New Roman', serif; -webkit-text-size-adjust: 100%; }
-    .wrapper { width: 100%; background: #f5f4f0; padding: 40px 16px; }
-    .card { max-width: 620px; margin: 0 auto; background: #ffffff; border-radius: 4px; overflow: hidden; border: 1px solid #e2e0d8; }
-    .header { background: #0f0f0f; padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; }
+    body { background: #f0f6f7; font-family: Georgia, 'Times New Roman', serif; -webkit-text-size-adjust: 100%; }
+    .wrapper { width: 100%; background: #f0f6f7; padding: 40px 16px; }
+    .card { max-width: 620px; margin: 0 auto; background: #ffffff; border-radius: 4px; overflow: hidden; border: 1px solid #b8d8de; }
+    .header { background: #1e3a5f; padding: 28px 40px; display: flex; align-items: center; justify-content: space-between; }
     .header-brand { color: #ffffff; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
-    .header-issue { color: #888; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; letter-spacing: 0.06em; }
-    .hero { padding: 44px 40px 32px; border-bottom: 1px solid #e8e6df; }
-    .hero-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #888; margin-bottom: 16px; }
+    .header-issue { color: #7fb3c8; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; letter-spacing: 0.06em; }
+    .hero { padding: 44px 40px 32px; border-bottom: 1px solid #b8d8de; }
+    .hero-label { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #0e7490; margin-bottom: 16px; }
     .hero-title { font-size: 32px; line-height: 1.22; font-weight: normal; color: #0f0f0f; letter-spacing: -0.02em; margin-bottom: 16px; }
-    .hero-preview { font-size: 16px; line-height: 1.6; color: #666; font-style: italic; }
+    .hero-preview { font-size: 16px; line-height: 1.6; color: #555; font-style: italic; }
     .body { padding: 36px 40px; }
     .body p  { font-size: 17px; line-height: 1.75; color: #1a1a1a; margin-bottom: 22px; }
-    .body h1 { font-size: 26px; line-height: 1.3; color: #0f0f0f; margin: 36px 0 16px; font-weight: normal; letter-spacing: -0.02em; }
-    .body h2 { font-size: 21px; line-height: 1.35; color: #0f0f0f; margin: 32px 0 14px; font-weight: normal; letter-spacing: -0.01em; }
-    .body h3 { font-size: 17px; line-height: 1.4; color: #0f0f0f; margin: 28px 0 12px; font-weight: bold; }
+    .body h1 { font-size: 26px; line-height: 1.3; color: #1e3a5f; margin: 36px 0 16px; font-weight: normal; letter-spacing: -0.02em; }
+    .body h2 { font-size: 21px; line-height: 1.35; color: #1e3a5f; margin: 32px 0 14px; font-weight: normal; letter-spacing: -0.01em; }
+    .body h3 { font-size: 17px; line-height: 1.4; color: #1e3a5f; margin: 28px 0 12px; font-weight: bold; }
     .body ul, .body ol { margin: 0 0 22px 24px; }
     .body li { font-size: 17px; line-height: 1.75; color: #1a1a1a; margin-bottom: 6px; }
     .body strong { font-weight: bold; color: #0f0f0f; }
     .body em { font-style: italic; }
-    .body code { font-family: 'Courier New', Courier, monospace; font-size: 14px; background: #f0ede6; color: #c7254e; padding: 2px 6px; border-radius: 3px; }
+    .body code { font-family: 'Courier New', Courier, monospace; font-size: 14px; background: #e4f2f5; color: #0e6273; padding: 2px 6px; border-radius: 3px; }
     .body pre { margin-bottom: 22px; }
-    .body blockquote { border-left: 3px solid #0f0f0f; padding: 4px 0 4px 20px; margin: 24px 0; color: #555; font-style: italic; font-size: 18px; line-height: 1.6; }
-    .body hr { border: none; border-top: 1px solid #e2e0d8; margin: 36px 0; }
-    .body a { color: #1a56db; }
-    .divider { border: none; border-top: 1px solid #e2e0d8; margin: 0; }
-    .footer { padding: 28px 40px; background: #faf9f6; }
-    .footer p { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: #999; line-height: 1.6; margin-bottom: 6px; }
-    .footer a { color: #666; text-decoration: underline; }
+    .body blockquote { border-left: 3px solid #0e7490; padding: 4px 0 4px 20px; margin: 24px 0; color: #555; font-style: italic; font-size: 18px; line-height: 1.6; }
+    .body hr { border: none; border-top: 1px solid #b8d8de; margin: 36px 0; }
+    .body a { color: #0e7490; }
+    .divider { border: none; border-top: 1px solid #b8d8de; margin: 0; }
+    .footer { padding: 28px 40px; background: #edf5f7; }
+    .footer p { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: #6b8fa0; line-height: 1.6; margin-bottom: 6px; }
+    .footer a { color: #0e7490; text-decoration: underline; }
     @media (max-width: 480px) {
       .header, .hero, .body, .footer { padding-left: 24px; padding-right: 24px; }
       .hero-title { font-size: 26px; }
@@ -231,15 +256,7 @@ function buildEmailHtml({ title, preview, articleHtml, fromName, unsubscribeUrl,
 </html>`;
 }
 
-// ─── 4. Configuration ─────────────────────────────────────────────────────────
-
-// UPDATE_FROM_EMAIL: set FROM_EMAIL env var to your verified Resend sending address
-const FROM_NAME       = process.env.FROM_NAME       || "PythonMuse LLC";
-const FROM_EMAIL      = process.env.FROM_EMAIL      || "newsletter@pythonmuse.com"; // UPDATE_FROM_EMAIL
-const UNSUBSCRIBE_URL = process.env.UNSUBSCRIBE_URL || "https://pythonmuse.com/unsubscribe"; // UPDATE_UNSUBSCRIBE_URL
-const GITHUB_URL      = "https://github.com/PythonMuse/ai-ledger"; // UPDATE_GITHUB_URL
-
-// ─── 5. Preview mode (--preview) ─────────────────────────────────────────────
+// ─── 4. Preview mode (--preview) ─────────────────────────────────────────────
 //
 // Writes the HTML to email-output/<article-slug>.html so you can open it
 // in a browser before sending to any subscribers.
@@ -248,18 +265,18 @@ if (PREVIEW_MODE) {
   const outputDir  = path.join(__dirname, "..", "email-output");
   if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir);
 
-  const slug       = path.basename(path.dirname(articlePath));
+  const slug       = path.basename(path.dirname(path.resolve(articlePath)));
   const outputFile = path.join(outputDir, `${slug}.html`);
 
   const html = buildEmailHtml({ title, preview, articleHtml, fromName: FROM_NAME, unsubscribeUrl: UNSUBSCRIBE_URL, githubUrl: GITHUB_URL });
   fs.writeFileSync(outputFile, html, "utf8");
 
-  console.log(`\n Preview written to: ${outputFile}`);
-  console.log(` Open in your browser to review before sending.\n`);
+  console.log(`\nPreview written to: ${outputFile}`);
+  console.log(`Open in your browser to review before sending.\n`);
   process.exit(0);
 }
 
-// ─── 6. Load subscribers ──────────────────────────────────────────────────────
+// ─── 5. Load subscribers ──────────────────────────────────────────────────────
 //
 // subscribers.json is gitignored. Format:
 //   [{ "email": "name@example.com", "name": "First Last" }, ...]
