@@ -34,3 +34,8 @@ articles/21-three-mindsets-of-ai-adoption/visuals/21_mindset_overview.png
 
 # Windows artifacts
 nul
+
+# Newsletter script — outputs and sensitive data (never commit these)
+email-output/
+subscribers.json
+.env
