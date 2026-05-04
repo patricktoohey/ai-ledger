@@ -33,7 +33,6 @@ Each article includes the full write-up, sample data, and the code to reproduce 
 | 17 | [The Power of Skills and Agents: How Accountants Actually Use AI](17-skills-and-agents-for-accountants/README.md) | Skills, agents, AI systems, workflow automation |
 | 17b | [Your First CLAUDE.md: How Accountants Define the Agent](17b-your-first-claude-md/README.md) | CLAUDE.md, agent configuration, accounting AI setup |
 | 21 | [The 3 Mindsets of AI Adoption in Accounting](21-three-mindsets-of-ai-adoption/README.md) | AI adoption, mindset, organizational change |
-
 | 23 | [Don't Trust the Model to Find What You Already Know Is There](23-schema-driven-sanitization/README.md) | Schema-Driven Data Sanitization for Small Business Accounting in the Age of AI |
 | 24 | [AI Didn't Break Your Numbers. Excel Did.](24-excel-number-trap/README.md) | Excel formatting, accounting number normalization, data discipline, Top 10 AI Traps #1 |
 
