@@ -36,7 +36,7 @@ Each article includes the full write-up, sample data, and the code to reproduce 
 | 21 | [The 3 Mindsets of AI Adoption in Accounting](articles/21-three-mindsets-of-ai-adoption/) | Mindset, change management, Builder/Stabilizer/Protector, AI adoption |
 | 22 | [The Workings Layer: Fitting AI Into the Files You Can't Change](articles/22-workings-layer-method/) | Workings layer, folder structure, CLAUDE.md placement, legacy files, audit-ready |
 | 23 | [Don't Trust the Model to Find What You Already Know Is There](articles/23-schema-driven-sanitization/) | Schema-driven sanitization, PII detection, data privacy, accounting data workflows, Privacy Filter |
-| 24 | [AI Didn't Break Your Numbers. Excel Did.](24-excel-number-trap/README.md) | Excel formatting, accounting number normalization, data discipline, Top 10 AI Traps #1 |
+| 24 | [AI Didn't Break Your Numbers. Excel Did.](articles/24-excel-number-trap/README.md) | Excel formatting, accounting number normalization, data discipline, Top 10 AI Traps #1 |
 
 
 ---
