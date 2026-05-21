@@ -9,6 +9,8 @@
 
 ![The PDF Token Trap](./visuals/16_visual_front.png)
 
+*Series: Top 10 AI Traps in Accounting — Trap #2*
+
 ---
 
 ## The Day My PDF Ate 20% of My Tokens
@@ -185,6 +187,10 @@ The structure stays intact. The sensitive data does not leave your environment.
 ## Final Thought
 
 Don't send documents. Send structure.
+
+---
+
+*Series: Top 10 AI Traps in Accounting — Trap #2: The PDF Token Trap*
 
 ---
 
