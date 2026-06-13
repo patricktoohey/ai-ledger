@@ -31,7 +31,7 @@ SITE_HOST = "https://www.pythonmuse.com"
 SITE_ARTICLE_PREFIX = "/articles"
 SITE_BASE = SITE_HOST + SITE_ARTICLE_PREFIX
 UNSUBSCRIBE_EMAIL = "svetlana@pythonmuse.com"
-POSTAL_ADDRESS = "[PythonMuse LLC mailing address — replace before sending]"
+POSTAL_ADDRESS = "PythonMuse LLC · 6421 N. Florida Ave., Suite D-1089, Tampa, FL 33604"
 
 BRAND = {
     "teal": "#0F7B6C",
